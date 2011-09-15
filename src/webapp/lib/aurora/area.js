@@ -6,7 +6,7 @@
  * @params {Object}
  * 			[parentDimension] parentDimension object that will indicate the dimensions of AR.Graph
  * @params {Object}
- * 			[panel] A panel object indicating the Graph Panel in which the current Area graph will be displayed
+ * 			[panel] A panel object indicating the Graph Panel in which the current Area graph will be displayed. 
  * This is a base class and is called by different Area implementations. 
  */
 AR.area = function(parentDimension, panel, graphDef){
