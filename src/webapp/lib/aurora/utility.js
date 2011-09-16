@@ -20,6 +20,16 @@ AR.Utility.findMax = function (data) {
 	return max;
 };
 
+AR.Utility.findSetMax = function (data) {
+	var max = data[0];
+	data.forEach(function (data) {
+		if (parseInt(data, 10) > max) {
+			max = parseInt(data, 10);
+		}
+	});
+	return max;
+};
+
 AR.Utility.getDataArray = function (data) {
 	var noOfRecords = data.length;
 	var arr = [], i;

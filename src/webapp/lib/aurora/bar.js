@@ -10,14 +10,14 @@
  * This is a base class and is called by different bar implementations (Eg : Vertical, Horizontal, Multivalued etc)
  * Adds Bar graph container to the panel, assigns data, sets anchor and tooltip with the given data
  */
-AR.Bar = function (graphDef, parentDimension, panel) {
+AR.Bar = function (graphDef, data, parentDimension, panel) {
 	var self = this;
 	this._bar = panel.add(pv.Bar);
 	this._parentDimension = parentDimension;
-	this._noOfRecords = graphDef.data.length;
-	this._bar.data(AR.Utility.getDataArray(graphDef.data));
+	this._noOfRecords = data.length;
+	this._bar.data(AR.Utility.getDataArray(data));
 	this._bar.title(function () {
-		return AR.Utility.getToolTipText(graphDef.data, this.index);
+		return AR.Utility.getToolTipText(data, this.index);
 	});
 	if (graphDef.toolTip && graphDef.toolTip === 1) {
 		this._bar.event("mouseover", pv.Behavior.tipsy({
@@ -28,7 +28,7 @@ AR.Bar = function (graphDef, parentDimension, panel) {
 		}));
 	} else {
 		this._bar.anchor(self instanceof AR.HBar ? "right" : "top").add(pv.Label).text(function () {
-			return graphDef.data[this.index].value;
+			return data[this.index].value;
 		}).textBaseline(self instanceof AR.HBar ? "left" : "bottom");
 	}
 	if (graphDef.palette) {
@@ -48,17 +48,20 @@ AR.Bar.prototype.properties = ["fillStyle", "strokeStyle"];
  *            displayed
  * @extends AR.Bar
  */
-AR.HBar = function (graphDef, parentDimension, panel) {
+AR.HBar = function (graphDef, data, parentDimension, panel) {
 	var self = this;
-	AR.Bar.apply(self, [graphDef, parentDimension, panel]);
+	AR.Bar.apply(self, [graphDef, data, parentDimension, panel]);
 	var adjustWidth = function (parentDimension) {
-		var barWidth = pv.Scale.linear(0, AR.Utility.findMax(graphDef.data)).range(0, parentDimension.width - 40);
+		var barWidth = pv.Scale.linear(0, AR.Utility.findMax(data)).range(0, parentDimension.width - 40);
 		self._bar.width(function (d) {
 			return barWidth(d);
 		});
 	};
 	var adjustHeight = function (parentDimension) {
-		self._bar.height((parentDimension.height - 30) / (2 * self._noOfRecords));
+		if(graphDef.dataset)
+			self._bar.height((parentDimension.height - 30) / (4 * self._noOfRecords));
+		else
+			self._bar.height((parentDimension.height - 30) / (2 * self._noOfRecords));
 	};
 	var adjustBottom = function (parentDimension) {
 		self._bar.bottom(function () {
@@ -68,9 +71,10 @@ AR.HBar = function (graphDef, parentDimension, panel) {
 	var adjustLeft = function (parentDimension) {
 		self._bar.left(0);
 	};
+	
 	self.adjustLabel = function (parentDimension) {
 		self._bar.anchor("left").add(pv.Label).textBaseline("right").text(function () {
-			return graphDef.data[this.index].label;
+			return data[this.index].label;
 		}).textAngle(-Math.PI / 4).textAlign("right");
 	};
 	
@@ -81,6 +85,7 @@ AR.HBar = function (graphDef, parentDimension, panel) {
 		adjustLeft(parentDimension);
 		adjustBottom(parentDimension);
 	};
+
 	self.adjustPosition(self._parentDimension);
 	self.adjustLabel(self._parentDimension);
 };
@@ -96,18 +101,21 @@ AR.HBar.prototype = AR.extend(AR.Bar);
  *            displayed
  * @extends AR.Bar
  */
-AR.VBar = function (graphDef, parentDimension, panel) {
+AR.VBar = function (graphDef, data, parentDimension, panel) {
 	var self = this;
-	AR.Bar.apply(self, [graphDef, parentDimension, panel]);
-
+	AR.Bar.apply(self, [graphDef, data, parentDimension, panel]);
+	
 	var adjustHeight = function (parentDimension) {
-		var barHeight = pv.Scale.linear(0, AR.Utility.findMax(graphDef.data)).range(0, parentDimension.height - 40);
+		var barHeight = pv.Scale.linear(0, AR.Utility.findMax(data)).range(0, parentDimension.height - 40);
 		self._bar.height(function (d) {
 			return barHeight(d);
 		});
 	};
 	var adjustWidth = function (parentDimension) {
-		self._bar.width((parentDimension.width - 30) / (2 * self._noOfRecords));
+		if(graphDef.dataset)
+			self._bar.width((parentDimension.width - 30) / (4 * self._noOfRecords));
+		else
+			self._bar.width((parentDimension.width - 30) / (2 * self._noOfRecords));
 	};
 	var adjustLeft = function (parentDimension) {
 		self._bar.left(function () {
@@ -119,7 +127,7 @@ AR.VBar = function (graphDef, parentDimension, panel) {
 	};
 	self.adjustLabel = function (parentDimension) {
 		self._bar.anchor("bottom").add(pv.Label).textBaseline("top").text(function () {
-			return graphDef.data[this.index].label;
+			return data[this.index].label;
 		}).textAngle(-Math.PI / 4).textAlign("right");
 	};
 	// TODO define a layout designer which does the following
@@ -150,7 +158,17 @@ AR.BarGraph = function (graphDef) {
 	var self = this;
 	var createBars = {
 	"v" : function () {
-		bar = new AR.VBar(graphDef, self._dimension, self._panel);
+		if(graphDef.dataset){
+			var dataset = graphDef.dataset;
+			for(i = 0; i< graphDef.dataset.length; i++){
+				 var noOfRecords = dataset.length* dataset[i].data.length;
+				 panel = self._panel.add(pv.Panel).left(i * (self._dimension.width - 30) / (noOfRecords) );
+				 bar = new AR.VBar(graphDef, dataset[i].data, self._dimension, panel);
+			}
+		}
+		else{
+			bar = new AR.VBar(graphDef, graphDef.data, self._dimension, self._panel);
+		}
 	},
 	"h" : function () {
 		if(graphDef.dataset){
@@ -162,20 +180,27 @@ AR.BarGraph = function (graphDef) {
 			}
 		}
 		else{
-			bar = new AR.HBar(graphDef, self._dimension, self._panel);
+			bar = new AR.HBar(graphDef, graphDef.data, self._dimension, self._panel);
 		}
 	}
+	
 	};
 	var setRules = {
 	"v" : function () {
-		self.setHorRules(AR.Utility.findMax(graphDef.data),AR.Utility.scale.linear);
+		if(graphDef.dataset){
+		
+		}
+		else
+			self.setHorRules(AR.Utility.findMax(graphDef.data),AR.Utility.scale.linear);
 	},
 	"h" : function () {
-		self.setVerticalRules(AR.Utility.findMax(graphDef.data),AR.Utility.scale.linear);
+		if(graphDef.dataset){
+		}else
+			self.setVerticalRules(AR.Utility.findMax(graphDef.data),AR.Utility.scale.linear);
 	}
 	};
 	AR.Graph.apply(self, [graphDef]);
-//	setRules[graphDef.type || "v"]();
+	setRules[graphDef.type || "v"]();
 	createBars[graphDef.type || "v"]();
 	this.setWidth = function (width) {
 		AR.Graph.prototype.setWidth.call(self, width);
