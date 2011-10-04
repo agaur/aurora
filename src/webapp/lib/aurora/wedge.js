@@ -20,11 +20,13 @@ AR.Wedge = function (parentDimension, panel, graphDef) {
 			return (parentDimension.width < parentDimension.height ? (parentDimension.width - 30) / 2 : (parentDimension.height -40) / 2);
 		});
 	};
+	
 	var adjustAngle = function (parentDimension) {
 		wedge.angle(function (d) {
 			return ((d) * 2 * Math.PI);
 		});
 	};
+	
 	var adjustLabelPosition = function (parentDimension, isValueLabel) {
 		var labels, shift;
 		if (isValueLabel) {
@@ -42,6 +44,7 @@ AR.Wedge = function (parentDimension, panel, graphDef) {
 			});
 		}
 	};
+	
 	self.adjustPosition = function (parentDimension) {
 		adjustRadius(parentDimension);
 		adjustLabelPosition(parentDimension);
@@ -64,6 +67,7 @@ AR.Wedge = function (parentDimension, panel, graphDef) {
 		});
 		adjustLabelPosition(parentDimension);
 	};
+	
 	self.showValues = function (parentDimension) {
 		valueLabels = wedge.add(pv.Label).textAlign("center").textBaseline("middle").text(function () {
 			return graphDef.data[this.index].value;
@@ -115,4 +119,13 @@ AR.PieGraph = function (graphDef) {
 	};
 };
 AR.PieGraph.prototype = AR.extend(AR.Graph);
+
+
+/**
+ * Wedge API to construct a Donut Graph
+ * @param {object}
+ *            [graphDef] An object containing the graph properties and the data
+ * @extends AR.Graph
+ */
+
 

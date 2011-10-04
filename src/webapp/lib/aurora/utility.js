@@ -51,6 +51,19 @@ AR.Utility.getSingleDimensionData = function(data, dimension){
 	}
 	return arr;
 };
+
+AR.Utility.getTwoDimensionData = function (data){
+	var noOfRecords = data.length;
+	var arr = [],innerArr = [], i;
+	for(i = 0; i < noOfRecords; i = i + 1){
+		innerArr = [];
+		innerArr.push(data[i].x);
+		innerArr.push(data[i].y);
+		arr.push(innerArr);
+	}
+	return arr;
+};
+
 AR.Utility.getMultiDimensionData = function (data){
 	var noOfRecords = data.length;
 	var arr = [],innerArr = [], i;

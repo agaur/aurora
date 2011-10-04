@@ -108,7 +108,8 @@ AR.VBar = function (graphDef, data, parentDimension, panel) {
 	var adjustHeight = function (parentDimension) {
 		var barHeight = pv.Scale.linear(0, AR.Utility.findMax(data)).range(0, parentDimension.height - 40);
 		self._bar.height(function (d) {
-			return barHeight(d);
+			var ret = barHeight(d);
+			return ret;
 		});
 	};
 	var adjustWidth = function (parentDimension) {

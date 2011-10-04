@@ -39,7 +39,7 @@
     }, {
         "label": "data5",
         "value": 3
-    }],
+    }]
 };
 </pre></div></td>
 </tr>
@@ -65,7 +65,7 @@
     }, {
         "label": "3data",
         "value": 2
-    }, ],
+    } ]
 };
 </pre></div></td></tr>
 <tr><td><div class ="gen-float-left" id="graph3"></div></td>
@@ -95,7 +95,7 @@
     }, {
         "label": "data5",
         "value": 3
-    }],
+    }]
 };
 </pre></div></td></tr>
 <tr><td><div class ="gen-float-left" id="graph4"></div></td>
@@ -119,7 +119,7 @@
     }, {
         "label": "3data",
         "value": 2
-    }, ],
+    }, ]
 };
 </pre></div></td></tr>
 <tr><td><div class ="gen-float-left" id="graph5"></div></td>
@@ -147,7 +147,7 @@
     }, {
         "label": "data5",
         "value": 3
-    }],
+    }]
 };
 </pre></div></td></tr>
 <tr><td><div class ="gen-float-left" id="graph6"></div></td>
@@ -201,7 +201,6 @@
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"fillColor": "silver",
 	 "type": "h",
 	 // The convention dataset has to be maintained if you wish to plot multivalued graphs;
 	 "dataset": [
@@ -215,7 +214,7 @@
 				"label": "Limca-US",
 				"value": 4
 			}
-		],
+		]
 	},
 	
 	{
@@ -256,7 +255,6 @@
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"fillColor": "silver",
 	 "type": "v",
 	 // The convention dataset has to be maintained if you wish to plot multivalued graphs;
 	 "dataset": [
@@ -301,7 +299,43 @@
   ]
 };
 </pre></div></td></tr>
+<tr><td><div class ="gen-float-left" id="graph9"></div></td>
+<td>
+<div><pre>
+{
+    "caption": "Area covered by Sales Persons",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "h",
+	 "data": [{
+			"x": 30,
+			"y": 1.3,
+	},
+    {
+			"x": 20,
+			"y": 4,
+	},
+    {
+			"x": 20,
+			"y": 1.0,
+	},
+    {
+			"x": 30,
+			"y": 1.5,
+	},
 
+    {
+			"x": 34,
+			"y": 1.3,
+	}
+	]
+};
+
+</pre></div></td></tr>
 </table>
 <script type="text/javascript+protovis">		
 var graphDef = {
@@ -333,7 +367,7 @@ var graphDef = {
         "label": "data5",
         "value": 3
 	}
-	],
+	]
 };
 
 var graphDef2 = {
@@ -357,8 +391,8 @@ var graphDef2 = {
     {
         "label": "3data",
         "value": 2
-	},
-    ],
+	}
+    ]
 
 };
 var graphDef3 = {
@@ -389,7 +423,7 @@ var graphDef3 = {
         "label": "data5",
         "value": 3
 	}
-	],
+	]
 };
 
 var graphDef4 = {
@@ -443,29 +477,29 @@ var graphDef5 = {
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"fillColor": "silver",
+	"type": "h",
 	 "data": [{
-        "label": "data1",
-        "value": 12
+			"x": 30,
+			"y": 1.3
 	},
     {
-        "label": "data2",
-        "value": 5
+			"x": 20,
+			"y": 4
 	},
     {
-        "label": "data3",
-        "value": 8
+			"x": 20,
+			"y": 1.0
 	},
     {
-        "label": "data4",
-        "value": 6
+			"x": 30,
+			"y": 1.5
 	},
 
     {
-        "label": "data5",
-        "value": 2
+			"x": 34,
+			"y": 1.3
 	}
-	],
+	]
 };
 
 var graphDef6 = {
@@ -475,9 +509,7 @@ var graphDef6 = {
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"fillColor": "silver",
 	 "type": "v",
-	 // The convention dataset has to be maintained if you wish to plot multivalued graphs;
 	 "dataset": [
 	 {
 		"data": [		
@@ -526,7 +558,6 @@ var graphDef7 = {
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"fillColor": "silver",
 	 "type": "h",
 	 // The convention dataset has to be maintained if you wish to plot multivalued graphs;
 	 "dataset": [
@@ -540,7 +571,7 @@ var graphDef7 = {
 				"label": "Limca-US",
 				"value": 4
 			}
-		],
+		]
 	},
 	
 	{
@@ -571,7 +602,7 @@ var graphDef7 = {
   ]
 };
 
-var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7;
+var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8;
 function createGraph() {
     graph = new AR.BarGraph(graphDef);
     graph.render("graph1");
@@ -589,10 +620,11 @@ function createGraph() {
 	graph6.render("graph7");
 	graph7 = new AR.BarGraph(graphDef6);
 	graph7.render("graph8");
+	graph8 = new AR.StackedAreaGraph(graphDef5);
+	graph8.render("graph9");
 }	
 window.onload = createGraph();
 </script>
-
 </body>
 </html>
 
