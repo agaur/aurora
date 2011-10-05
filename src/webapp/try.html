@@ -8,8 +8,7 @@
     <script type="text/javascript" src="lib/svg/svg.js" data-path="lib/svg/"></script>
 <![endif]-->
 <meta name="svg.render.forceflash" content="true">
-<script type="text/javascript" src="lib/protovis-r3.3.js"></script>
-<script type="text/javascript" src="lib/protovis-d3.3.js"></script>
+<script type="text/javascript" src="lib/aurora/aurora.js"></script>
 <!--  custom js -->
 
 </head>
@@ -51,20 +50,6 @@
 			rule.data(pv.range(0, 5, .5)).bottom(function(d){ return(d * 70)});
 			rule.strokeStyle(config.color || "black");
 			
-		}
-		function makeGraph(graphDef, renderDiv) {
-			var styles = graphDef.styles;
-			var panel = new pv.Panel();
-			panel.add(pv.Label).text(graphDef.chart.caption).left(styles.width/2).top(20).textAlign("center");
-			if(graphDef.rule){
-				var rule = panel.add(pv.Rule);
-				setRuleStyles(rule,graphDef.rule);
-			}
-			var bar = panel.add(pv.Bar);
-			setBarStyles(bar, graphDef, panel);
-			var label = bar.add(pv.Label);
-			setLabelStyles(label, graphDef.data,bar);
-			return panel;
 		}
 
 	var graphDef = {

@@ -120,12 +120,90 @@ AR.PieGraph = function (graphDef) {
 };
 AR.PieGraph.prototype = AR.extend(AR.Graph);
 
+/**
+ * The basefunction for the Donut initialization. 
+ * Initializes the WedgeGraph. Sets the data
+ * @params {Object}
+ * 			[graphDef] graphDef object supplied by the User for which the graph needs to be plotted. It contains graph properties and the data
+ * @params {Object}
+ * 			[parentDimension] parentDimension object that will indicate the dimensions of AR.Graph
+ * @params {Object}
+ * 			[panel] A panel object indicating the Graph Panel in which the current Wedge graph will be displayed
+ * This is a base class and is called by different Wedge implementations (Eg : Donut or Pie)
+ */
+AR.Donut = function(parentDimension, panel, graphDef){
+	var properties = ["values", "labels", "legends"];
+	var wedge = panel.add(pv.Wedge);
+	var wedgeLabels, valueLabels;
+	var dataValues = AR.Utility.getDataArray(graphDef.data);
+	var self = this;
+	var adjustRadius = function (parentDimension) {
+		wedge.outerRadius(function () {
+			return (parentDimension.width < parentDimension.height ? (parentDimension.width - 30) / 2 : (parentDimension.height -40) / 2);
+		});
+		
+		wedge.innerRadius(function () {
+			return (parentDimension.width < parentDimension.height ? ((parentDimension.width - 30) / 2)-40 : ((parentDimension.height -40) / 2))-40;
+		});
+	};
+	var adjustAngle = function (parentDimension) {
+		wedge.angle(function (d) {
+			return ((d) * 2 * Math.PI);
+		});
+	};
+	var setAnchor = function(datavals){
+		wedge.anchor("center").add(pv.Label).visible(function(d) d).textAngle(0).text(function(d) d.toFixed(2));
+	};
+	
+	self.adjustPosition = function (parentDimension) {
+		adjustRadius(parentDimension);
+		adjustAngle(parentDimension);
+		
+		/* Uncomment the below two if you want Donut + Pie */
+		
+		//wedge.event("mouseover", function() this.innerRadius(0));
+		//wedge.event("mouseout", function() this.innerRadius(parentDimension.width/3));
+		setAnchor(dataValues);
+	};
 
+	wedge.data(pv.normalize(dataValues));
+	
+	wedge.title(function () {
+		return AR.Utility.getToolTipText(graphDef.data, this.index);
+	});
+	//TODO: add tool tip at the right place
+	if (graphDef.toolTip && graphDef.toolTip === 1) {
+		wedge.event("mouseover", pv.Behavior.tipsy({
+		gravity : function () {
+			return ("s");
+		},
+		fade : true
+		}));
+	}
+	self.adjustPosition(parentDimension);
+};
 /**
  * Wedge API to construct a Donut Graph
  * @param {object}
  *            [graphDef] An object containing the graph properties and the data
  * @extends AR.Graph
  */
+ 
+AR.DonutGraph = function (graphDef) {
+	var self = this;
+	AR.Graph.apply(self, [graphDef]);
+	var wedges = new AR.Donut(self._dimension, self._panel, graphDef);
+	//TODO: add other function such as changing the pallete etc  
+	// Would kinda serve as APIs for a new user who's come in.. 
+	self.setWidth = function (width) {
+		AR.Graph.prototype.setWidth.call(self, width);
+		wedges.adjustPosition(self._dimension);
+	};
+	self.setHeight = function (height) {
+		AR.Graph.prototype.setHeight.call(self, height);
+		wedges.adjustPosition(self._dimension);
+	};
+};
+AR.DonutGraph.prototype = AR.extend(AR.Graph);
 
 

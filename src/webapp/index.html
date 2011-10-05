@@ -303,6 +303,41 @@
 <td>
 <div><pre>
 {
+    "caption": "Top 5 Sales Person",
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"showValues" : 1,
+	"showLabels" : 1,
+    "data": [{
+        "label": "data1",
+        "value": 15
+	},
+    {
+        "label": "data2",
+        "value": 3
+	},
+    {
+        "label": "data3",
+        "value": 2
+	},
+    {
+        "label": "data4",
+        "value": 3
+	},
+
+    {
+        "label": "data5",
+        "value": 3
+	}
+	]
+};
+
+</pre></div></td></tr>
+<tr><td><div class ="gen-float-left" id="graph10"></div></td>
+<td>
+<div><pre>
+{
     "caption": "Area covered by Sales Persons",
     "yAxisName": "Names",
 	"xAxisName": "Sales Figure",
@@ -310,31 +345,94 @@
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"type": "h",
+	"type": "b",
 	 "data": [{
-			"x": 30,
-			"y": 1.3,
+			"x": 3,
+			"y": 1.3
 	},
     {
-			"x": 20,
-			"y": 4,
+			"x": 2,
+			"y": 4
 	},
     {
-			"x": 20,
-			"y": 1.0,
+			"x": 2,
+			"y": 1.0
 	},
     {
-			"x": 30,
-			"y": 1.5,
+			"x": 3,
+			"y": 1.5
 	},
 
     {
-			"x": 34,
-			"y": 1.3,
+			"x": 3,
+			"y": 1.3
 	}
 	]
 };
-
+</pre></div></td></tr>
+<tr><td><div class ="gen-float-left" id="graph11"></div></td>
+<td>
+<div><pre>
+{
+    "caption": "Area covered by Sales Persons",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "b",
+	 "dataset" : [
+	 
+	 {
+			"data": [{
+			"x": 3,
+			"y": 1.3
+			},
+			{
+			"x": 2,
+			"y": 4
+			},
+			{
+			"x": 2,
+			"y": 1.0
+			},
+			{
+			"x": 3,
+			"y": 1.5
+			},
+			{
+			"x": 3,
+			"y": 1.3
+			}
+			]
+	},
+	
+	{
+			"data": [{
+			"x": 1.3,
+			"y": 3
+			},
+			{
+			"x": 4,
+			"y": 2
+			},
+			{
+			"x": 1.0,
+			"y": 2
+			},
+			{
+			"x": 1.5,
+			"y": 3
+			},
+			{
+			"x": 1.3,
+			"y": 3
+			}
+			]
+	}
+	]
+};
 </pre></div></td></tr>
 </table>
 <script type="text/javascript+protovis">		
@@ -477,26 +575,26 @@ var graphDef5 = {
     "width": 500,
     "height": 500,
 	"palette": 1,
-	"type": "h",
+	"type": "b",
 	 "data": [{
-			"x": 30,
+			"x": 3,
 			"y": 1.3
 	},
     {
-			"x": 20,
+			"x": 2,
 			"y": 4
 	},
     {
-			"x": 20,
+			"x": 2,
 			"y": 1.0
 	},
     {
-			"x": 30,
+			"x": 3,
 			"y": 1.5
 	},
 
     {
-			"x": 34,
+			"x": 3,
 			"y": 1.3
 	}
 	]
@@ -602,7 +700,70 @@ var graphDef7 = {
   ]
 };
 
-var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8;
+var graphDef8 = {
+    "caption": "Area covered by Sales Persons",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "b",
+	 "dataset" : [
+	 
+	 {
+			"data": [{
+			"x": 3,
+			"y": 1.3
+			},
+			{
+			"x": 2,
+			"y": 4
+			},
+			{
+			"x": 2,
+			"y": 1.0
+			},
+			{
+			"x": 3,
+			"y": 1.5
+			},
+			{
+			"x": 3,
+			"y": 1.3
+			}
+			]
+	},
+	
+	{
+			"data": [{
+			"x": 1.3,
+			"y": 3
+			},
+			{
+			"x": 4,
+			"y": 2
+			},
+			{
+			"x": 1.0,
+			"y": 2
+			},
+			{
+			"x": 1.5,
+			"y": 3
+			},
+			{
+			"x": 1.3,
+			"y": 3
+			}
+			]
+	}
+	]
+};
+
+
+
+var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8,graph9,graph10;
 function createGraph() {
     graph = new AR.BarGraph(graphDef);
     graph.render("graph1");
@@ -620,8 +781,12 @@ function createGraph() {
 	graph6.render("graph7");
 	graph7 = new AR.BarGraph(graphDef6);
 	graph7.render("graph8");
-	graph8 = new AR.StackedAreaGraph(graphDef5);
+	graph8 = new AR.DonutGraph(graphDef3);
 	graph8.render("graph9");
+	graph9 = new AR.StackedAreaGraph(graphDef5);
+	graph9.render("graph10");
+	graph10 = new AR.StackedAreaGraph(graphDef8);
+	graph10.render("graph11");
 }	
 window.onload = createGraph();
 </script>

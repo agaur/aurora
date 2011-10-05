@@ -227,6 +227,22 @@ AR.Graph.prototype.setHorRules = function (maxValue, scaleType) {
 	}
 };
 
+AR.Graph.prototype.setCustomHorRules = function(scaleMinimumOrData, scaleMaximum, scaleType){
+	var self = this;
+	var y;
+	if (!self._horRules) {
+		y = pv.Scale[scaleType](scaleMinimumOrData, scaleMaximum).range(0, self._dimension.height);
+		self._horRules = self._panel.add(pv.Rule);
+		self._horRules.data(y.ticks()).bottom(y).strokeStyle(function (d) {
+			return (d ? "#eee" : "#000");
+		}).anchor("left").add(pv.Label).text(y.tickFormat);
+	} else {
+		y = pv.Scale.linear(0, maxValue).range(0, self._dimension.height - 40);
+		self._horRules.bottom(y);
+	}
+};
+
+
 /**
  * Sets vertical rules in a graph.
  * Rules are nothing but lines that divide the graph to form a grid like structure
@@ -249,6 +265,22 @@ AR.Graph.prototype.setVerticalRules = function (maxValue, scaleType) {
 		self._verticalRules.left(x);
 	}
 };
+
+AR.Graph.prototype.setCustomVerticalRules = function (dataorScaleMinimum, maxValue, scaleType) {
+	var self = this;
+	var x;
+	if (!self.__verticalRules) {
+		self._verticalRules = self._panel.add(pv.Rule);
+		x = pv.Scale[scaleType](dataorScaleMinimum, maxValue).range(0, self._dimension.width);
+		self._verticalRules.data(x.ticks()).left(x).strokeStyle(function (d) {
+			return (d ? "#eee" : "#000");
+		}).anchor("bottom").add(pv.Label).text(x.tickFormat);
+	} else {
+		x = pv.Scale.linear(0, maxValue).range(0, self._dimension.width - 40);
+		self._verticalRules.left(x);
+	}
+};
+
 
 /**
  * Sets a graph's BorderColor
