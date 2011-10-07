@@ -374,7 +374,7 @@
 <td>
 <div><pre>
 {
-    "caption": "Area covered by Sales Persons",
+    "caption": "Multi Line Graph",
     "yAxisName": "Names",
 	"xAxisName": "Sales Figure",
 	"toolTip": 1,
@@ -386,50 +386,30 @@
 	 
 	 {
 			"data": [{
-			"x": 3,
-			"y": 1.3
-			},
-			{
-			"x": 2,
-			"y": 4
-			},
-			{
-			"x": 2,
-			"y": 1.0
-			},
-			{
-			"x": 3,
-			"y": 1.5
-			},
-			{
-			"x": 3,
-			"y": 1.3
-			}
-			]
+			"label": "1data",
+			"value": 15,
+			"toolTipText": "label:1data, value:15"
+			}, {
+			"label": "2data",
+			"value": 3
+			}, {
+			"label": "3data",
+			"value": 2
+			} ]
 	},
 	
 	{
 			"data": [{
-			"x": 1.3,
-			"y": 3
-			},
-			{
-			"x": 4,
-			"y": 2
-			},
-			{
-			"x": 1.0,
-			"y": 2
-			},
-			{
-			"x": 1.5,
-			"y": 3
-			},
-			{
-			"x": 1.3,
-			"y": 3
-			}
-			]
+			"label": "1data",
+			"value": 10,
+			"toolTipText": "label:1data, value:10"
+			}, {
+			"label": "2data",
+			"value": 5
+			}, {
+			"label": "3data",
+			"value": 6
+			} ]
 	}
 	]
 };
@@ -701,7 +681,7 @@ var graphDef7 = {
 };
 
 var graphDef8 = {
-    "caption": "Area covered by Sales Persons",
+    "caption": "Multi Line Graph",
     "yAxisName": "Names",
 	"xAxisName": "Sales Figure",
 	"toolTip": 1,
@@ -710,55 +690,34 @@ var graphDef8 = {
 	"palette": 1,
 	"type": "b",
 	 "dataset" : [
-	 
-	 {
+		{
 			"data": [{
-			"x": 3,
-			"y": 1.3
-			},
-			{
-			"x": 2,
-			"y": 4
-			},
-			{
-			"x": 2,
-			"y": 1.0
-			},
-			{
-			"x": 3,
-			"y": 1.5
-			},
-			{
-			"x": 3,
-			"y": 1.3
-			}
-			]
+			"label": "1data",
+			"value": 15,
+			"toolTipText": "label:1data, value:15"
+			}, {
+			"label": "2data",
+			"value": 3
+			}, {
+			"label": "3data",
+			"value": 2
+			} ]
 	},
 	
 	{
 			"data": [{
-			"x": 1.3,
-			"y": 3
-			},
-			{
-			"x": 4,
-			"y": 2
-			},
-			{
-			"x": 1.0,
-			"y": 2
-			},
-			{
-			"x": 1.5,
-			"y": 3
-			},
-			{
-			"x": 1.3,
-			"y": 3
-			}
-			]
+			"label": "1data",
+			"value": 10,
+			"toolTipText": "label:1data, value:10"
+			}, {
+			"label": "2data",
+			"value": 5
+			}, {
+			"label": "3data",
+			"value": 6
+			} ]
 	}
-	]
+	 ]
 };
 
 
@@ -785,7 +744,7 @@ function createGraph() {
 	graph8.render("graph9");
 	graph9 = new AR.StackedAreaGraph(graphDef5);
 	graph9.render("graph10");
-	graph10 = new AR.StackedAreaGraph(graphDef8);
+	graph10 = new AR.LineGraph(graphDef8);
 	graph10.render("graph11");
 }	
 window.onload = createGraph();

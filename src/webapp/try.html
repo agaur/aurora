@@ -1,99 +1,71 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>iGraph</title>
-<!--[if IE]>
-<script type="text/javascript" src="https://getfirebug.com/firebug-lite.js"></script>
-    <script type="text/javascript" src="lib/svg/svg.js" data-path="lib/svg/"></script>
-<![endif]-->
-<meta name="svg.render.forceflash" content="true">
+  <head>
+    <title>Stacked Area Chart</title>
+    <link type="text/css" rel="stylesheet" href="ex.css?3.2"/>
 <script type="text/javascript" src="lib/aurora/aurora.js"></script>
-<!--  custom js -->
+    <style type="text/css">
 
-</head>
-<body>
-	<div id="graph">
-		<script type="text/javascript+protovis">
-		setBarStyles = function (bar, graphDef, panel) {
-			bar.data(function () {
-				var arr = []
-				for (i = 0; i < graphDef.data.length; i++) {
-					arr.push(graphDef.data[i].value)
-				}
-				return arr;
-			});
-			bar.fillStyle("red");
-			bar.width(20);
-			bar.bottom(0);
-			bar.height(function (d) {
-				return d * 80;
-			});
-			bar.left(function () {
-				return this.index * 40 + 20;
-			});
-		};
-		function setLabelStyles(label, data) {
-			label.text(function () {
-				return data[this.index].label;
-			});
-			label.textAngle(-Math.PI/2);
-			label.left(function () {
-				return this.index * 40 + 20;
-			});
-			label.textAlign("left");
-			label.bottom(20);
-			
-			return label;
-		}
-		function setRuleStyles(rule,config){
-			rule.data(pv.range(0, 5, .5)).bottom(function(d){ return(d * 70)});
-			rule.strokeStyle(config.color || "black");
-			
-		}
+#fig {
+  width: 430px;
+  height: 225px;
+}
 
-	var graphDef = {
-		    "chart": {
-		        "yaxisname": "Sales Figure",
-		        "caption": "Top 5 Sales Person",
-		        "numberprefix": "$",
-		        "useroundedges": "1",
-		        "bgcolor": "FFFFFF,FFFFFF",
-		        "showborder": "0"
-		    },
-		    "data": [
-		        {
-		            "label": "Alex",
-		            "value": "2.5"
-		        },
-		        {
-		            "label": "Mark",
-		            "value": "3.5"
-		        },
-		        {
-		            "label": "David",
-		            "value": "4.2"
-		        },
-		        {
-		            "label": "Graham",
-		            "value": "3.5"
-		        },
-		        {
-		            "label": "John",
-		            "value": "3.1"
-		        }
-		    ],
-		    "styles": {
-		    	"width":"400",
-		    	"height":"400"
-		    },
-		    "rule":{
-		    	//"color":"yellow"
-		    }
-		};
-	var graph= makeGraph(graphDef,"graph");
-	graph.render();
-</script>
-	</div>
-</body>
+    </style>
+  </head>
+  <body><div id="center"><div id="fig">
+    <script type="text/javascript+protovis">
+
+var data = pv.range(4).map(function() {
+    return pv.range(0, 10, .1).map(function(x) {
+        return {x: x, y: Math.sin(x) + Math.random() * .5 + 2};
+      });
+  });
+
+/* Sizing and scales. */
+var w = 400,
+    h = 200,
+    x = pv.Scale.linear(0, 9.9).range(0, w),
+    y = pv.Scale.linear(0, 14).range(0, h);
+
+/* The root panel. */
+var vis = new pv.Panel()
+    .width(w)
+    .height(h)
+    .bottom(20)
+    .left(20)
+    .right(10)
+    .top(5);
+
+/* X-axis and ticks. */
+vis.add(pv.Rule)
+    .data(x.ticks())
+    .visible(function(d) d)
+    .left(x)
+    .bottom(-5)
+    .height(5)
+  .anchor("bottom").add(pv.Label)
+    .text(x.tickFormat);
+
+/* The stack layout. */
+vis.add(pv.Layout.Stack)
+    .layers(data)
+    .x(function(d) x(d.x))
+    .y(function(d) y(d.y))
+  .layer.add(pv.Area);
+
+/* Y-axis and ticks. */
+vis.add(pv.Rule)
+    .data(y.ticks(3))
+    .bottom(y)
+    .strokeStyle(function(d) d ? "rgba(128,128,128,.2)" : "#000")
+  .anchor("left").add(pv.Label)
+    .text(y.tickFormat);
+
+vis.render();
+
+    </script>
+  </div></div></body>
 </html>
+
+
+

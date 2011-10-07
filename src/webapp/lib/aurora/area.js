@@ -24,7 +24,6 @@ AR.stackedarea = function(parentDimension, panel, graphDef){
 		var xScale = pv.Scale.linear(0, maxVal).range(0, parentDimension.width-40); 
 		//var xScale = pv.Scale.linear(graphDef.data, function(d) d.x).range(0, parentDimension.width); 
 		self._stackedArea.left(function(d){
-			var value = xScale(d.x);
 			return xScale(d.x);
 		});
 	};
@@ -33,7 +32,6 @@ AR.stackedarea = function(parentDimension, panel, graphDef){
 		var maxVal = AR.Utility.getSingleDimensionData(graphDef.data,AR.Utility.Dimension.y).max();
 		var yScale = pv.Scale.linear(0, maxVal).range(0, parentDimension.height-40);
 		self._stackedArea.height(function(d){
-			var value = yScale(d.y)
 			return yScale(d.y)
 		});
 	};
@@ -69,7 +67,6 @@ AR.stackedarea = function(parentDimension, panel, graphDef){
 	//self._stackedArea.layer.add(pv.Area);		
 };
 
-
 /**
  * The basefunction for the Stacked Area Graph initialization. MultiGraph this is! 
  * Initializes the StackedAreaGraph. Sets the data
@@ -81,8 +78,61 @@ AR.stackedarea = function(parentDimension, panel, graphDef){
  * 			[panel] A panel object indicating the Graph Panel in which the current Area graph will be displayed. 
  * This is a base class and is called by different Area implementations. 
  */
-AR.multistackedarea = function(parentDimension, panel, graphDef){
+AR.multistackedarea = function(parentDimension, panel, graphDef, data){
 	// TODO  Multiple area graphs in the same canvas
+	var self = this;
+	self._panel = panel.add(pv.Layout.Stack);
+	self._panel.layers(data);
+	
+	var dataArray = new Array();
+		for(i=0; i<graphDef.dataset.length; i++){
+			var max = AR.Utility.getSingleDimensionData(graphDef.dataset[i].data, AR.Utility.Dimension.y).max();
+			var maxMap = {"value" : max};
+			dataArray.push(maxMap);
+		}
+	var yMax = AR.Utility.findMax(dataArray);
+	
+	var XdataArray = new Array();
+	for(i=0; i<graphDef.dataset.length; i++){
+		var max = AR.Utility.getSingleDimensionData(graphDef.dataset[i].data, AR.Utility.Dimension.x).max();
+		var maxMap = {	"label" : "data",
+						"value" : max};
+		XdataArray.push(maxMap);
+	}
+	var xMax = AR.Utility.findMax(XdataArray);
+	
+	var setXvalue = function(parentDimension){
+		var xScale = pv.Scale.linear(0, xMax).range(0, parentDimension.width-40);
+		self._panel.x(function(d){
+			return xScale(d.x);
+		});
+	};
+	
+	var setYvalue = function(parentDimension){
+		var yScale = pv.Scale.linear(0, yMax).range(0, parentDimension.height-40);
+		self._panel.y(function(d){
+			return yScale(d.y);
+		});
+	};
+	
+	
+	
+	var setBottom = function(){
+		self._panel.bottom(0);
+	};
+	
+	var setFillStyle = function(){
+		self._panel.fillStyle("rgb(121,173,210)");
+	};
+	
+	self.setDataValues = function(){
+		setXvalue(parentDimension);
+		setYvalue(parentDimension);
+		setBottom();
+		self._panel.layer.add(pv.Area);
+	}
+	
+	self.setDataValues();
 };
 
 
@@ -93,6 +143,15 @@ AR.multistackedarea = function(parentDimension, panel, graphDef){
  * @extends AR.Graph
  */
 AR.StackedAreaGraph = function(graphDef){
+
+/*	var data = pv.range(4).map(function() {
+    return pv.range(0, 10, .1).map(function(x) {
+        return {x: x, y: Math.sin(x) + Math.random() * .5 + 2};
+      });
+  });
+*/
+   
+   
 	var self = this;
 	var stackedArea;
 	AR.Graph.apply(self,[graphDef]);
@@ -102,14 +161,31 @@ AR.StackedAreaGraph = function(graphDef){
 		if(graphDef.data){
 			var maxVal = AR.Utility.getSingleDimensionData(graphDef.data,AR.Utility.Dimension.y).max();
 			self.setHorRules(maxVal,AR.Utility.scale.linear);
+		}else{
+			var dataArray = new Array();
+			for(i=0; i<graphDef.dataset.length; i++){
+				var max = AR.Utility.getSingleDimensionData(graphDef.dataset[i].data, AR.Utility.Dimension.y).max();
+				var maxMap = {"value" : max};
+				dataArray.push(maxMap);
+			}
+			self.setHorRules(AR.Utility.findMax(dataArray),AR.Utility.scale.linear);
 		}	
 	},
-	
+
 	"h" : function () {
 		if(graphDef.data){
 			var maxVal = AR.Utility.getSingleDimensionData(graphDef.data,AR.Utility.Dimension.x).max();
 			self.setVerticalRules(maxVal,AR.Utility.scale.linear);
-		}	
+		}else{
+			var dataArray = new Array();
+			for(i=0; i<graphDef.dataset.length; i++){
+				var max = AR.Utility.getSingleDimensionData(graphDef.dataset[i].data, AR.Utility.Dimension.x).max();
+				var maxMap = {	"label" : "data",
+								"value" : max};
+				dataArray.push(maxMap);
+			}
+			self.setVerticalRules(AR.Utility.findMax(dataArray), AR.Utility.scale.linear);
+		}
 	},
 	
 	"b" : function () {
@@ -119,13 +195,38 @@ AR.StackedAreaGraph = function(graphDef){
 			
 			var ymaxVal = AR.Utility.getSingleDimensionData(graphDef.data,AR.Utility.Dimension.x).max();
 			self.setVerticalRules(ymaxVal,AR.Utility.scale.linear);
+		}else{
+			var XdataArray = new Array();
+			for(i=0; i<graphDef.dataset.length; i++){
+				var max = AR.Utility.getSingleDimensionData(graphDef.dataset[i].data, AR.Utility.Dimension.x).max();
+				var maxMap = {	"label" : "data",
+								"value" : max};
+				XdataArray.push(maxMap);
+			}
+			self.setVerticalRules(AR.Utility.findMax(XdataArray), AR.Utility.scale.linear);
+			
+			var YdataArray = new Array();
+			for(i=0; i<graphDef.dataset.length; i++){
+				var max = AR.Utility.getSingleDimensionData(graphDef.dataset[i].data, AR.Utility.Dimension.y).max();
+				var maxMap = {"value" : max};
+				YdataArray.push(maxMap);
+			}
+			self.setHorRules(AR.Utility.findMax(YdataArray),AR.Utility.scale.linear);
 		}	
 	}
-	
+	 
 	};
 	
 	setRules[graphDef.type || "b"]();
+	
 	if(graphDef.dataset){
+			var dataset = graphDef.dataset;
+			var dataArray = new Array();
+			for(i=0; i<graphDef.dataset.length; i++){
+				dataArray.push(dataset[i].data);
+			}
+			stackedArea = new AR.multistackedarea(self._dimension, self._panel, graphDef, dataArray);
+			//document.write(dataArray);
 	}else
 		stackedArea = new AR.stackedarea(self._dimension, self._panel, graphDef);
 	
@@ -159,7 +260,5 @@ AR.StackedAreaGraph = function(graphDef){
 		AR.Graph.prototype.setRight.call(self, right);
 		stackedArea.adjustPosition(self._dimension);
 	};
-	
-	
 }
 AR.StackedAreaGraph.prototype = AR.extend(AR.Graph);
