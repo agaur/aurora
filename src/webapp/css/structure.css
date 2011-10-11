@@ -1,0 +1,343 @@
+/* - - - - - - - - - - - - - - - - - - - - -
+
+Title : Wufoo Form Structure
+Author : Infinity Box Inc.
+URL : http://wufoo.com
+
+- - - - - - - - - - - - - - - - - - - - - */
+
+html{
+	background:#eee;
+}
+body{
+	margin:0;
+	padding:0;
+	text-align:center;
+	font-size:small;
+	font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+}
+
+button.druid-btn-settings {
+    background-image: url("../css/images/configuration.png");
+}
+
+button.druid-btn-messages {
+    background-image: url("../css/images/conversation.png");
+}
+
+button.druid-btn-notification {
+    background-image: url("../css/images/time.png") ;
+}
+
+button.druid-btn-download {
+    background-image: url("../css/images/download.png") ;
+}
+
+button.druid-btn-messages,
+button.druid-btn-notification, 
+button.druid-btn-settings, 
+button.druid-btn-download,
+button.druid-btn-help {
+    background-color: #FFFFFF ;
+    background-position: 0px 0px ;
+    background-repeat: no-repeat ;
+    height: auto ;
+    padding-left: 18px ;
+	padding-bottom: 5px;
+    font-family: Arial,Helvetica,Verdana,sans-serif ;
+    font-size: 11px ;
+    box-shadow: none ;
+}
+
+button.druid-btn-messages:hover,
+button.druid-btn-notification:hover,
+button.druid-btn-settings:hover, 
+button.druid-btn-download:hover,
+button.druid-btn-help:hover {
+    background-color: #FFFFFF ;
+}
+
+input[type="submit"], 
+input[type="button"], 
+button {
+	background: none repeat scroll 0 0 #ebf1de ;
+    border: 0px solid #FFFFFF ;
+    color: #34338d ;
+	/*text-shadow: 0px -1px 1px #fff ;*/
+	text-shadow: none ;
+	padding:0px;
+}
+
+input[type="submit"]:hover, 
+input[type="button"]:hover, 
+button:hover {
+	background-color: #f5f6e8 ;
+	cursor:pointer;
+}
+
+input[type="radio"] {
+    margin: 0 0 1px;
+    vertical-align: middle;
+}
+
+textarea, input, select {
+    border: 1px solid #CCCCCC;
+    resize: none;
+}
+
+article, aside, figure, figure img, figcaption, hgroup,
+footer, header, nav, section, video, object, output {
+	display: block;
+}
+
+#pager, .pager, .pager2 {
+	position:relative !important;
+	top:auto !important;
+	margin:10px; 
+	text-align:right;	
+	width:98%;
+	height:40px;
+}
+
+#fixed-menu-top {
+	position:fixed;
+	width:100%;
+	z-index:9999; 
+}
+
+#fixed-menu-top-content {
+	height:25px; 
+	margin:0 auto; 
+	width: 100%;
+	background-color:#666;	
+	text-align:left;
+	color: #fff;
+	padding-top:5px;
+	padding-left:3%;
+	-webkit-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	-moz-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	-o-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+}
+
+#fixed-menu-top-content a {
+	color: #6CF;
+	text-decoration:none;	
+}
+
+#fixed-top {
+	position:fixed;
+	width:100%;
+	z-index:9999;
+}
+
+#fixed-top-content {
+	height:auto; 
+	margin:0 auto; 
+	width: 800px; 
+	background-color:#666;	
+	color: #fff;
+	padding:5px 10px;
+	-webkit-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	-moz-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	-o-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+}
+
+#fixed-top-content a {
+	color: #6CF;
+	text-decoration:none;	
+}
+
+#container{
+	text-align:left;
+	background:#fff;
+	border:1px solid #ccc;
+	-webkit-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	-moz-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	-o-box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+	box-shadow:rgba(0,0,0,.2) 0px 0px 5px;
+}
+
+#container, #bottom{
+	position: relative;
+    top: 35px;
+	margin:0 auto;
+	width:800px;
+}
+#bottom{
+	width:650px;
+	height:10px !important;
+	margin-bottom:10px;
+	display:block !important;
+}
+
+form.wufoo{
+	margin:20px 14px 0 14px;
+	padding:0 0 20px 0;
+	position:relative;
+}
+
+/* ----- LOGO ----- */
+
+#logo{
+	margin:0;
+	padding:0;
+	min-height:0;
+	background-color:#dedede;
+	text-indent:-9000px;
+	text-decoration:none;
+}
+#logo a{
+	min-height:40px;
+	height:40px;
+	display:block;
+	background:url(../images/wflogo.png) no-repeat left top;
+	overflow:hidden;
+}
+* html #logo a{
+	_background-image: none;
+	_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../images/wflogo.png", sizingMethod="crop");
+}
+img, a img{
+	border:none;
+	vertical-align:text-top;
+	-ms-interpolation-mode: bicubic;
+}
+* html #bottom{ 
+	_behavior: url(../images/iepngfix.htc);
+}
+.hide, .cloak div, .cloak span, .likert.cloak tbody, .likert.cloak thead{
+	display:none !important;
+}
+.likert.cloak table{
+	border:none;
+}
+
+/** Modal Box **/
+
+#mask {
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:9000;
+  background-color:#000;
+  display:none;
+  z-index:10000; 
+}
+  
+#boxes .window {
+  position:absolute;
+  left:0;
+  top:0;
+  width:440px;
+  height:200px;
+  display:none;
+  z-index:9999;
+  padding:20px;
+  z-index:10001; 
+}
+
+#boxes #parameters {
+  width:auto; 
+  height:auto;
+  padding:0px;
+  background-color:#ffffff;
+}
+
+#boxes #messages {
+  width:375px; 
+  height:203px;
+  padding:0px;
+  background-color:#ffffff;
+}
+
+#boxes #pcus {
+  width:auto; 
+  height:auto;
+  padding:0px;
+  background-color:#ffffff;
+}
+
+#boxes #pcuMoods {
+  width:auto; 
+  height:auto;
+  padding:0px;
+  background-color:#ffffff;
+}
+
+
+#boxes #notifications {
+  width:375px; 
+  height:203px;
+  padding:0px;
+  background-color:#ffffff;
+}
+
+#boxes #feedbackForm {
+  width:900px; 
+  height:600px;
+  padding:0px;
+  background-color:#ffffff;
+}
+
+#boxes #popup-header, .popup-header {
+  height:17px; 
+  font-weight:bold; 
+  background-color:#6699CC; 
+  color:#FFF; 
+  text-align:left; 
+  padding:5px 10px;
+}
+
+#boxes #popup-footer, .popup-footer {
+  padding:10px; 
+  height:17px;
+}
+
+.feedbackDetailsTable {
+	border-spacing: 1px;
+	margin:10px 10px; 
+	font-size:11px; 
+	background-color: #E9E9E9;
+}
+
+.feedbackDetailsTable tr td, .feedbackDetailsTable tr th, .feedbackDetailsTable thead{
+	padding: 5px;
+}
+
+
+#chart-tabs-wrapper {
+    width:100%;
+	background-color:#666;
+}
+ul.chart-tabs-tabs {
+    width:250px;
+    margin:0;
+    padding:0;
+}
+ul.chart-tabs-tabs li {
+    display:block;
+    float:left;
+    padding:0 5px;
+}
+ul.chart-tabs-tabs li a {
+    display:block;
+    float:left;
+    padding:5px;
+    font-size:0.8em;
+	background-color:#666;
+    color:#FFF;
+    text-decoration:none;
+}
+ul.chart-tabs-tabs li a.selected {
+    background-color:#DEDEDE;
+    color:#333;
+    /*font-weight:bold;*/
+}
+.chart-tabs-tab-content {
+    clear:both;
+    /*border:1px solid #ddd;*/
+	background-color:#FFF;
+    padding:10px;
+}

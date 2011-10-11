@@ -414,6 +414,124 @@
 	]
 };
 </pre></div></td></tr>
+<tr><td><div class ="gen-float-left" id="graph12"></div></td>
+<td>
+<div><pre>
+{
+    "caption": "Multi Line Graph",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "b",
+	"style": "step"
+	 "dataset" : [
+	 
+	 {
+			"data": [{
+			"label": "1data",
+			"value": 15,
+			"toolTipText": "label:1data, value:15"
+			}, {
+			"label": "2data",
+			"value": 3
+			}, {
+			"label": "3data",
+			"value": 2
+			} ]
+	},
+	
+	{
+			"data": [{
+			"label": "1data",
+			"value": 10,
+			"toolTipText": "label:1data, value:10"
+			}, {
+			"label": "2data",
+			"value": 5
+			}, {
+			"label": "3data",
+			"value": 6
+			} ]
+	}
+	]
+};
+</pre></div></td></tr>
+<tr><td><div class ="gen-float-left" id="graph13"></div></td>
+<td>
+<div><pre>
+{
+    "caption": "Tree and Node Graph",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "b",
+	"root" : "Pramati"
+	"data" : [
+		{
+			"Pramati Technologies" : [
+				{
+					"dept" : "server", 
+					"employees":"80", 
+					"workingdays":"5"
+				}, 
+				{
+					"dept" : "non-server", 
+					"employees":"80", 
+					"workingdays":"6"
+				}
+			]
+		},
+		{
+			"Imaginea Technologies" : [
+				{
+					"dept" : "bigmachines", 
+					"employees":"80", 
+					"workingdays":"4"
+				}, 
+				{
+					"dept" : "leantaas", 
+					"employees":"80", 
+					"workingdays":"12"
+				}
+			]
+		},
+		{
+			"Social Twist" : [
+				{
+					"dept" : "tell a friend", 
+					"employees":"80", 
+					"workingdays":"5"
+				}, 
+				{
+					"dept" : "buzz around", 
+					"employees":"60", 
+					"workingdays":"3"
+				}
+			]
+		},
+		{
+			"Qontext" : [
+				{
+					"dept" : "chatting", 
+					"employees":"80", 
+					"workingdays":"5"
+				},
+				{
+					"dept" : "non-chatting", 
+					"employees":"80", 
+					"workingdays":"5"
+				}
+			]
+		}	
+	]
+};
+</pre></div></td></tr>
 </table>
 <script type="text/javascript+protovis">		
 var graphDef = {
@@ -720,9 +838,66 @@ var graphDef8 = {
 	 ]
 };
 
+var graphDef9 = {
+    "caption": "Multi Line Graph",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "b",
+	 "style": "step",
+	 "dataset" : [
+		{
+			"data": [{
+			"label": "1data",
+			"value": 15,
+			"toolTipText": "label:1data, value:15"
+			}, {
+			"label": "2data",
+			"value": 3
+			}, {
+			"label": "3data",
+			"value": 2
+			} ]
+	},
+	
+	{
+			"data": [{
+			"label": "1data",
+			"value": 10,
+			"toolTipText": "label:1data, value:10"
+			}, {
+			"label": "2data",
+			"value": 5
+			}, {
+			"label": "3data",
+			"value": 6
+			} ]
+	}
+	 ]
+};
 
+var graphDef10 = {
+    "caption": "Tree and Node Graph",
+    "yAxisName": "Names",
+	"xAxisName": "Sales Figure",
+	"toolTip": 1,
+    "width": 500,
+    "height": 500,
+	"palette": 1,
+	"type": "b",
+	"root" : "Pramati",
+	"data" : [
+		{"Pramati Technologies" : [{"dept" : "server", "employees":"80", "workingdays":"5"}, {"dept" : "non-server", "employees":"80", "workingdays":"6"}]},
+		{"Imaginea Technologies" : [{"dept" : "bigmachines", "employees":"80", "workingdays":"4"}, {"dept" : "leantaas", "employees":"80", "workingdays":"12"}]},
+		{"Social Twist" : [{"dept" : "tell a friend", "employees":"80", "workingdays":"5"}, {"dept" : "buzz around", "employees":"60", "workingdays":"3"}]},
+		{"Qontext" : [{"dept" : "chatting", "employees":"80", "workingdays":"5"},{"dept" : "non-chatting", "employees":"80", "workingdays":"5"}]}	
+	]
+};
 
-var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8,graph9,graph10;
+var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8,graph9,graph10,graph11;
 function createGraph() {
     graph = new AR.BarGraph(graphDef);
     graph.render("graph1");
@@ -746,6 +921,8 @@ function createGraph() {
 	graph9.render("graph10");
 	graph10 = new AR.LineGraph(graphDef8);
 	graph10.render("graph11");
+	graph11 = new AR.LineGraph(graphDef9);
+	graph11.render("graph12");
 }	
 window.onload = createGraph();
 </script>

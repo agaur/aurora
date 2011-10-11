@@ -1,0 +1,205 @@
+/* tables */
+table.tablesorter {
+	font-family:arial;
+	background-color: #E9E9E9;
+	margin:0;
+	font-size: 8pt;
+	width: 100%;
+	text-align: left;
+}
+table.tablesorter tbody tr {
+	background-color: #FFF;
+}
+table.tablesorter thead tr th, table.tablesorter tfoot tr th {
+	background-color: #e6EEEE;
+	border: 1px solid #FFF;
+	font-size: 8pt;
+	padding: 4px;
+}
+table.tablesorter thead tr .header {
+	background-image: url(bg.gif);
+	background-repeat: no-repeat;
+	background-position: center right;
+	cursor: pointer;
+}
+table.tablesorter tbody td {
+	color: #3D3D3D;
+	padding: 4px;
+	vertical-align: top;
+}
+
+table.tablesorter tbody tr:hover {
+	background: #FFF;
+}
+
+.hoverClass { 
+	background: #F7F7F7; 
+}
+
+table.tablesorter tbody tr.odd td {
+	background-color:#F0F0F6;
+}
+table.tablesorter thead tr .headerSortUp {
+	background-image: url(asc.gif);
+}
+table.tablesorter thead tr .headerSortDown {
+	background-image: url(desc.gif);
+}
+table.tablesorter thead tr .headerSortDown, table.tablesorter thead tr .headerSortUp {
+background-color: #8dbdd8;
+}
+
+table.tablesorter tr.selectedRow {
+	background-color:#FFFFCF;
+}
+
+table.tablesorter tr.selectedRow:hover {
+	background-color:#FFFFCF;
+}
+
+.selectedRow {
+	background-color:#FFFFCF;
+}
+
+.selectedRow:hover {
+	background-color:#FFFFCF;
+}
+
+
+table.tablesorter tbody td.green {
+	background-color:#096;
+	color:#FFFFFF;
+}
+
+table.tablesorter tbody .selectedRow td.green {
+	background-color:#9C0;
+	color:#FFFFFF;
+}
+
+table.tablesorter tbody td.grey {
+	background-color:#CCC;
+	color:#000000;
+}
+
+table.tablesorter tbody .selectedRow td.grey {
+	background-color:#AAA;
+	color:#000000;
+}
+
+table.tablesorter tbody td.red {
+	background-color:#C30;
+	color:#FFFFFF;
+}
+
+table.tablesorter tbody .selectedRow td.red {
+	background-color:#F60;
+	color:#FFFFFF;
+}
+
+.green {
+	background-color:#9C0;
+	color:#FFFFFF;
+}
+.grey {
+	background-color:#AAA;
+	color:#000000;
+}
+.neutral {
+	background-color:#FFFFCF;
+	color:#000000;
+}
+.red {
+	background-color:#F60;
+	color:#FFFFFF;
+}
+
+.style50 {
+	width:80px;
+}
+
+.style40 {
+	width:40px;
+}
+
+.style30 {
+	width:30px;
+}
+
+.style60 {
+	width:60px;
+}
+
+.style65 {
+	width:65px;
+}
+
+.style70 {
+	width:70px;
+}
+
+.style80 {
+	width:80px;
+}
+
+.style120 {
+	width:120px;
+}
+
+table.tablesorter .tableBarGPA {
+	margin:1px; 
+	background-color:#e4b11a;
+}
+
+table.tablesorter .tableBarTopPercent {
+	margin:1px; 
+	background-color:#82e0e0;
+}
+
+table.tablesorter .tableBarTotalPercent {
+	margin:1px;
+	padding:0 2px; 
+	background-color:#EBEBEB;
+	clear:both;
+	text-align:right;
+}
+
+table.tablesorter .tableBarYesPercent {
+	margin:1px;
+	padding-left:2px; 
+	background-color:#00b050;
+	clear:both;
+}
+
+table.tablesorter .tableBarNeutralPercent {
+	margin:1px; 
+	padding-left:2px; 
+	background-color:#ffc000;
+	clear:both;
+}
+
+table.tablesorter .tableBarNoPercent {
+	margin:1px; 
+	padding-left:2px; 
+	background-color:#ff0000;
+	clear:both;
+}
+
+table.tablesorter .colQuarter { 
+	background-color:#ffffe6;
+	border-left:1px solid #cbcbcb;
+	border-right:1px solid #cbcbcb;
+}
+
+table.tablesorter .colYear { 
+	background-color:#e8f2f2;
+}
+
+table.tablesorter .questionOpen,
+table.tablesorter .questionOpen:hover { 
+	background-color:#FFFFCF;
+}
+
+table.tablesorter .colQuarter .questionOpen,
+table.tablesorter .colQuarter .questionOpen:hover { 
+	background-color:#e8e8d0;
+}

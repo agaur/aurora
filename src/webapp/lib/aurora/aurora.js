@@ -337,7 +337,7 @@ AR.registerToProtovis = function () {
 	if (navigator.appName === "Microsoft Internet Explorer") {
 		AR.addJavascript("lib/svg/svg.js", "head", "lib/svg/");
 	}
-	var scriptArray = ["lib/protovis-d3.3.js", "lib/aurora/bar.js", "lib/aurora/wedge.js", "lib/aurora/utility.js", "lib/aurora/bubble.js", "lib/aurora/area.js", "lib/aurora/line.js"];
+	var scriptArray = ["lib/protovis-d3.3.js", "lib/aurora/bar.js", "lib/aurora/wedge.js", "lib/aurora/utility.js", "lib/aurora/bubble.js", "lib/aurora/area.js", "lib/aurora/line.js", "lib/js/jquery-1.5.1.js", "lib/js/jquery.ui.core.js", "lib/js/jquery.tablesorter.pager.js", "lib/js/jquery.tablesorter.js", "lib/js/jquery.validationEngine.js", "lib/aurora/load.js"];
 	self._includeScripts = function(scriptArray){
 		for(i=0;i<scriptArray.length; i++){
 			AR.addJavascript(scriptArray[i]);

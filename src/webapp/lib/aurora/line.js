@@ -9,7 +9,7 @@
  * 			[panel] A panel object indicating the Graph Panel in which the current Line graph will be displayed
  * This is a base class and is called by different Line implementations. 
  */
-AR.Line = function (parentDimension, panel, graphDef) {
+AR.Line = function (parentDimension, panel, graphDef,step) {
 	var self = this;
 	var noOfRecords = graphDef.data.length;
 	var line = panel.add(pv.Line);
@@ -58,6 +58,9 @@ AR.Line = function (parentDimension, panel, graphDef) {
 	}
 	self.adjustPositions(parentDimension);
 	self.adjustLabel(parentDimension);
+	if(step==true){
+		line.interpolate("step-after")
+	}
 };
 
 /**
@@ -75,7 +78,7 @@ AR.Line = function (parentDimension, panel, graphDef) {
  * 			[maxValue] The value for setting the scale
  * This is a base class and is called by different Line implementations. 
  */
-AR.MLine = function (parentDimension, panel, graphDef, data, maxValue) {
+AR.MLine = function (parentDimension, panel, graphDef, data, maxValue, step) {
 	var self = this;
 	var noOfRecords = data.length;
 	var line = panel.add(pv.Line);
@@ -131,6 +134,9 @@ AR.MLine = function (parentDimension, panel, graphDef, data, maxValue) {
 	}
 	self.adjustPositions(parentDimension);
 	self.adjustLabel(parentDimension);
+	if(step==true){
+		line.interpolate("step-after")
+	}
 };
 
 /**
@@ -143,6 +149,9 @@ AR.LineGraph = function (graphDef) {
 	var line;
 	var self = this;
 	AR.Graph.apply(self, [graphDef]);
+	if(graphDef.style=="step"){
+		var flag = true;
+	}
 	if(graphDef.dataset){
 		var maxValue;
 		var dataArray = new Array();
@@ -157,12 +166,12 @@ AR.LineGraph = function (graphDef) {
 		for(i = 0; i< graphDef.dataset.length; i++){
 			 var noOfRecords = dataset.length* dataset[i].data.length;
 			 panel = self._panel.add(pv.Panel).left(i * (self._dimension.width - 30) / (noOfRecords) );
-			 bar = new AR.MLine(self._dimension, panel, graphDef, dataset[i].data, maxValue);
+			 bar = new AR.MLine(self._dimension, panel, graphDef, dataset[i].data, maxValue,flag);
 		}
 		self.setHorRules(maxValue, AR.Utility.scale.linear);
 	}else{
 		self.setHorRules(AR.Utility.findMax(graphDef.data),AR.Utility.scale.linear);
-		line = new AR.Line(self._dimension, self._panel, graphDef);
+		line = new AR.Line(self._dimension, self._panel, graphDef, flag);
 	}
 	
 	self.setWidth = function (width) {
