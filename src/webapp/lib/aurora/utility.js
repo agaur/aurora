@@ -38,6 +38,29 @@ AR.Utility.getDataArray = function (data) {
 	}
 	return arr;
 };
+
+AR.Utility.getImageContentChart= function (data, type) {
+	var noOfRecords = data.length;
+	var arr, i;
+	for (i = 0; i < noOfRecords; i = i + 1) {
+		if(data[i].chart.type == type){
+			arr = data[i].chart.content.chart;
+		}
+	}
+	return arr;
+};
+
+AR.Utility.getJSONContentChart= function (data, type) {
+	var noOfRecords = data.length;
+	var arr, i;
+	for (i = 0; i < noOfRecords; i = i + 1) {
+		if(data[i].chart.type == type){
+			arr = data[i].chart.content.jsoncontent;
+		}
+	}
+	return arr;
+};
+
 AR.Utility.Dimension = {
 	x : "x",
 	y : "y",
@@ -92,4 +115,6 @@ AR.Utility.setPalette = function (element, paletteCode) {
 	element.fillStyle(function () {
 		return colors[this.index % colors.length];
 	});
+	
+	
 };

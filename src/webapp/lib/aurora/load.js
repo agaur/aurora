@@ -1,76 +1,142 @@
 $(document).ready(function() { 
-$('.chart-tabs-tabs a').click(function(){
-	switch_tabs($(this));
-});
-
-switch_tabs($('.defaulttab'));
-//select all the a tag with name equal to modal
-$('button[name=modal],div[name=modal]').click(function(e) {
-	//Cancel the link behavior
-	e.preventDefault();
 	
-	//Get the A tag
-	var id = $(this).attr('id');
-
-	//Get the screen height and width
-	var maskHeight = $(document).height();
-	var maskWidth = $(window).width();
-
-	//Set heigth and width to mask to fill up the whole screen
-	$('#mask').css({'width':maskWidth,'height':maskHeight});
+	// TODO write generateDivs to dynamically generate the Divs instead of writing them statically.. 
+	generateDivs();
 	
-	//transition effect		
-	$('#mask').fadeIn(200);	
-	$('#mask').fadeTo("slow",0.8);	
+	var type = "";
+	$('.chart-tabs-tabs a').click(function(){
+		switch_tabs($(this),type);
+	});
 
-	//Get the window height and width
-	var winH = $(window).height()+2*$(window).scrollTop();
-	var winW = $(window).width();
+	
+
+	//select all the a tag with name equal to modal
+	$('button[name=modal],div[name=modal]').click(function(e) {
+		//Cancel the link behavior
+		e.preventDefault();
+	
+		//Get the A tag
+		var id = $(this).attr('id');
+	
+		// Get the type tag. This type tag will help us determine what image to show and what JSON to show
+		type = $(this).attr('type');
+
+		//Get the screen height and width
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
+
+		//Set heigth and width to mask to fill up the whole screen
+		$('#mask').css({'width':maskWidth,'height':maskHeight});
+	
+		//transition effect		
+		$('#mask').fadeIn(200);	
+		$('#mask').fadeTo("slow",0.8);	
+
+		//Get the window height and width
+		var winH = $(window).height()+2*$(window).scrollTop();
+		var winW = $(window).width();
 		  
-	//Set the popup window to center
-	$(id).css('top',  winH/2-$(id).height()/2);
-	$(id).css('left', winW/2-$(id).width()/2);
-
-	//transition effect
-	$(id).fadeIn(500);
-});
-
-
-//if close button is clicked
-$('.window .close').click(function (e) {
-	e.preventDefault();
+		//Set the popup window to center
+		$(id).css('top',  winH/2-$(id).height()/2);
+		$(id).css('left', winW/2-$(id).width()/2);
 	
-	$('#mask').hide();
-	$('.window').hide();
-});		
+		//transition effect
+		$(id).fadeIn(500);
+		
+		switch_tabs($('.defaulttab'),type);
+	});
 
-//if mask is clicked
-$('#mask').click(function () {
-	$(this).hide();
-	$('.window').hide();
-});
 
+		//if close button is clicked
+		$('.window .close').click(function (e) {
+			e.preventDefault();
+			
+			$('#mask').hide();
+			$('.window').hide();
+		});		
+
+		//if mask is clicked
+		$('#mask').click(function () {
+			$(this).hide();
+			$('.window').hide();
+		});
 });    
 
-function switch_tabs(obj) {
+function switch_tabs(obj,type) {
 $('.chart-tabs-tab-content').hide();
 $('.chart-tabs-tabs a').removeClass("selected");
 var id = obj.attr("rel");
-
+var newChartHTML = "<img src='css/images/"+type+".png'> ";
+var jsonContent = getchartjson(type);
+if(id == "tabs1"){
+	document.getElementById(id).innerHTML = newChartHTML;
+}else{
+	var text = JSON.stringify(jsonContent, null, '\t');
+	document.getElementById(id).innerHTML = text;
+}
 $('#'+id).show();
 obj.addClass("selected");
 } 
 
+function generateDivs(){
+	var mapData = chartJSON.charter;
+	var group = "", prevgroup = mapData[0].chart.group, flag = true;
+	for(var i=0; i<mapData.length; i++){
+			var graphType = mapData[i].chart.type;
+			var graphTitle = mapData[i].chart.name;
+			var graphDesc = mapData[i].chart.description;
+			group = mapData[i].chart.group;
+			if(prevgroup == group){
+				
+			
+				
+			}else{
+				// On change your first element will always be here
+				
+				//alert("change");
+				if(flag == true){
+					
+					//alert("In group"+group+"");
+					
+					
+				}
+				
+			}
+			
+			prevgroup = group;
+	}	
+}
+function getChartImage(type){
+	var chartData = chartJSON.charter;
+	return "css/images/"+type+".png";
+	//var imgLocation = AR.Utility.getImageContentChart(chartData,type);
+}
+
+
+function getchartjson(type){
+	var chartData = chartJSON.charter;
+	var chartjson =  AR.Utility.getJSONContentChart(chartData,type);
+	return chartjson;
+}
+
+/** Make sure that the type of the JSON you're using in the JSON mapping 
+ * is same as the image name in your folder css/images for this particular graph. 
+ * If not, you're gonna have to use the getImageContentChart to get the image location 
+ * when you do so, your chart value should contain your absolute image path instead of just the location.
+ * */
 var chartJSON = {
 	
 	"charter" : [{
 	// 
-	"chart" : [
+	"chart" : 
 	 {
-		"type" : "hbar",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"type"        :  "hbar",
+		"group"       :  "Bar Graphs",
+		"name"  	  :  "Horizontal Bar Graph",
+		"description" :  "Data Comparision Using a Horizontal Bar Graph", 
+		"content" :	{
+				"chart" : "css/images/",
+				"jsoncontent": {
 					"caption": "Top 5 Sales Person",
 					"yAxisName": "Names",
 					"xAxisName": "Sales Figure",
@@ -100,16 +166,19 @@ var chartJSON = {
 						"value": 3
 					}
 				]
-	}]}]}]},
+	}}}},
 	
 	// ============== Vertical Bar Graph ============
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "vbar",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Bar Graphs",
+		"name"  	  :  "Vertical Bar Graph",
+		"description" :  "Data Comparision Using a Vertical Bar Graph",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 					"caption": "Top 5 Sales Person",
 					"yAxisName": "Names",
 					"xAxisName": "Sales Figure",
@@ -139,16 +208,19 @@ var chartJSON = {
 						"value": 3
 					}
 				]
-	}]}]}]},
+	}}}},
 	
 	// ======== Multi Line Horizontal ========
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "mhbar",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Bar Graphs",
+		"name"  	  :  "Multi Horizontal Bar Graph",
+		"description" :  "Data Comparision Using a Horizontal Multi Bar Graph",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 						"caption": "MultiValued Chart For Sales",
 						"yAxisName": "Sales Figure Per Group",
 						"xAxisName": "Names",
@@ -197,15 +269,18 @@ var chartJSON = {
 							]
 					   }
 					  ]
-	}]}]}]},
+	}}}},
 	{
 	// ============ MultiLine Vertical ==========
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "mvbar",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Bar Graphs",
+		"name"  	  :  "Multi Vertical Bar Graph",
+		"description" :  "Data Comparision Using a Vertical Multi Bar Graph",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 							"caption": "MultiValued Chart For Sales",
 							"yAxisName": "Sales Figure Per Group",
 							"xAxisName": "Names",
@@ -254,16 +329,19 @@ var chartJSON = {
 								]
 						   }
 						  ]
-	}]}]}]},
+	}}}},
 	
 	// Line Graph Dots 
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "pline",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Line Graphs",
+		"name"  	  :  "Line Graph with points marked",
+		"description" :  "Simple Line Graph with pointed marked",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 					"caption": "Top 5 Sales Person",
 					"yAxisName": "Names",
 					"xAxisName": "Sales Figure",
@@ -293,16 +371,19 @@ var chartJSON = {
 						"value": 3
 					}
 				]
-	}]}]}]},
+	}}}},
 	
 	// Simple Line Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
-		"type" : "sline",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"type" 		  : "sline",
+		"group"       :  "Line Graphs",
+		"name"  	  :  "Line Graph with points not marked",
+		"description" :  "Simple Line Graph",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 					"caption": "Top 5 Sales Person",
 					"yAxisName": "Sales Figure",
 					"xAxisName": "Names",
@@ -325,16 +406,19 @@ var chartJSON = {
 						"value": 2
 					}
 					]
-	}]}]}]},
+	}}}},
 	
 	// Multi Line Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "mline",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Line Graphs",
+		"name"  	  :  "Multi Line Graph",
+		"description" :  "A multi Line Graph representation",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 							"caption": "Multi Line Graph",
 							"yAxisName": "Names",
 							"xAxisName": "Sales Figure",
@@ -372,16 +456,19 @@ var chartJSON = {
 									} ]
 							}
 							]
-	}]}]}]},
+	}}}},
 	
 	// Line Graph Step
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "stline",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Line Graphs",
+		"name"  	  :  "Multi Line Step Graph",
+		"description" :  "Line Graph with Step",
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 					"caption": "Multi Line Graph",
 					"yAxisName": "Names",
 					"xAxisName": "Sales Figure",
@@ -420,16 +507,20 @@ var chartJSON = {
 							} ]
 					}
 					]
-	}]}]}]},
+	}}}},
 	
 	// Bubble Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "bubble",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Scatter, Wedge and Area Graphs",
+		"name"  	  :  "Bubble Graph",
+		"description" :  "Simple Bubble Graph Representation",
+
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 						"caption": "Top 5 Sales Person",
 						"width": 500,
 						"height": 500,
@@ -470,16 +561,20 @@ var chartJSON = {
 										"toolTipText": "Corporate Group A"
 									}
 								]
-	}]}]}]},
+	}}}},
 	
 	// Pie Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "pie",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Scatter, Wedge and Area Graphs",
+		"name"  	  :  "Pie Graph",
+		"description" :  "Simple Pie Graph Representation",
+
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 						"caption": "Top 5 Sales Person",
 						"width": 500,
 						"height": 500,
@@ -508,16 +603,20 @@ var chartJSON = {
 							"value": 3
 						}
 						]
-	}]}]}]},
+	}}}},
 	
 	// Donut Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "donut",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Scatter, Wedge and Area Graphs",
+		"name"  	  :  "Donut Graph",
+		"description" :  "Simple Donut Graph Representation",
+
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 							"caption": "Top 5 Sales Person",
 							"width": 500,
 							"height": 500,
@@ -546,16 +645,20 @@ var chartJSON = {
 								"value": 3
 							}
 							]	
-	}]}]}]},
+	}}}},
 	
 	// Stacked Area Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "area",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Scatter, Wedge and Area Graphs",
+		"name"  	  :  "Stacked Area Graph",
+		"description" :  "Simple Area Graph Representation",
+
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 							"caption": "Area covered by Sales Persons",
 							"yAxisName": "Names",
 							"xAxisName": "Sales Figure",
@@ -586,16 +689,20 @@ var chartJSON = {
 									"y": 1.3
 							}
 							]
-	}]}]}]},
+	}}}},
 	
 	// Tree Graph
 	{
-	"chart" : [
+	"chart" : 
 	 {
 		"type" : "tree",
-		"content" :	[{	
-				"chart" : "chart-image-url",
-				"jsoncontent": [{
+		"group"       :  "Misc",
+		"name"  	  :  "Tree Graph",
+		"description" :  "Tree Graph or Node Link Representation",
+
+		"content" :	{	
+				"chart" : "css/images/",
+				"jsoncontent": {
 							"caption": "Tree and Node Graph",
 							"yAxisName": "Names",
 							"xAxisName": "Sales Figure",
@@ -663,5 +770,5 @@ var chartJSON = {
 									]
 								}	
 							]
-	}]}]}]}
+	}}}}
 ]};
