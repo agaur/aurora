@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Aurora - A Charting Library</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="css/structure.css" type="text/css" />
+        <link rel="stylesheet" href="css/form.css" type="text/css" />
+        <link rel="stylesheet" href="css/validationEngine.jquery.css" type="text/css" />
+        <link rel="stylesheet" href="css/jquery.ui.all.css">
+        <link rel="stylesheet" href="css/blue/style.css">
+		<script type="text/javascript" src="lib/aurora/aurora.js"></script>   
+    </head>
+    
+    <body id="public">
+    	<div id="fixed-menu-top" style="display:none;">
+        	<div id="fixed-menu-top-content">
+            	<a style="background-color:#EEEEEE; padding:10px 10px; color:#333333;">Chart Gallery</a>
+            </div>
+        </div>
+ 
+	<div id="container" style="height:auto; width:600px;">
+          <div style="color:#69C; font-size:18px; font-weight:bold; text-align:left; padding:10px; overflow:hidden;">
+              <div style="margin-bottom:20px;">
+                Chart Gallery
+              </div>
+              <div style="float:left; width:100%; color:#69C; font-size:11px; font-weight:bold; line-height:20px;">
+                  <div style="margin-left:5px; float:left;">Bar Graphs :-</div>
+                  <div style="width:100%; float:left;">
+                  	<div name="modal" id="#parameters" type="hbar" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/hbar.png" width="140px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Horizontal Bar Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Data Comparision using a Horizontal Bar Graph
+                        </div>
+                    </div>
+                  	<div name="modal" id="#parameters" type="vbar" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/vbar.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Vertical Bar Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Data Comparision using a Vertical Bar Graph
+                        </div>
+                    </div>
+                  	<div name="modal" id="#parameters" type="mhbar" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/mhbar.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Multi Series Horizontal Bar Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Data Comparision using a Horizontal Bar Graph for a series
+                        </div>
+                  	</div>
+                  	<div name="modal" id="#parameters" type="mvbar" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/mvbar.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Multi Series Vertical Bar Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Data Comparision using a Vertical Bar Graph for a series
+                        </div>
+                  	</div>
+                  </div>                
+              </div>
+              <div style="width:100%; float:left; height:20px;">
+              </div>
+              <div style="float:left; width:100%; color:#69C; font-size:11px; font-weight:bold; line-height:20px;">
+                  <div style="margin-left:5px; float:left;">
+                  	Line Graphs :-
+                  </div>
+                  <div style="width:100%; float:left;">
+                  	<div name="modal" id="#parameters" type="pline" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/pline.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Line Graph with colored points
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Simple Line Graph where the points are colored
+                        </div>
+                    </div>
+                  	<div name="modal" id="#parameters" type="sline" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/sline.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+							Simple Line Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	A simple line graph demo
+                        </div>
+                    </div>
+                  	<div name="modal" id="#parameters" type="mline" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/mline.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Multi Line Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Multi-Series Line Graph
+                        </div>
+                  	</div>
+                  	<div name="modal" id="#parameters" type="stline" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/stline.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Line Graph - Step
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	A simple line graph with steps
+                        </div>
+                  	</div>
+                  </div>                   
+              </div>
+              <div style="width:100%; float:left; height:20px;">
+              </div>
+              <div style="float:left; width:100%; color:#69C; font-size:11px; font-weight:bold; line-height:20px;">
+                  <div style="margin-left:5px; float:left;">
+                  	Scatter, Wedge and Area Graphs :-
+                  </div>
+                  <div style="width:100%; float:left;">
+                  	<div name="modal" id="#parameters" type="bubble" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/bubble.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Bubble Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	A scatter Graph Representation
+                        </div>
+                    </div>
+                  	<div name="modal" id="#parameters" type="pie" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/pie.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Pie Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	A Pie Graph distribution
+                        </div>
+                    </div>
+                  	<div name="modal" id="#parameters" type="donut" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/donut.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Donut Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	A Donut Graph Representation
+                        </div>
+                    </div>
+                    <div name="modal" id="#parameters" type="area" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/area.png" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Scattered Area Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	An area Graph Representation
+                        </div>
+                    </div>
+                  </div>                   
+              </div>
+              <div style="width:100%; float:left; height:20px;">
+              </div>
+              <div style="float:left; width:100%; color:#69C; font-size:11px; font-weight:bold; line-height:20px;">
+                  <div style="margin-left:5px; float:left;">
+                  	Misc :-
+                  </div>
+                  <div style="width:100%; float:left;">
+                  	<div name="modal" id="#parameters" type="tree" style="float:left; width:23%; padding:1%; cursor:pointer;">
+                    	<div id="content">
+                    		<img src="css/images/chart.jpg" width="130px;"/>
+                        </div>
+                        <div style="text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;">
+                        	Tree Graph
+                        </div>
+                        <div style="text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;">
+                        	Node and Link Graph Structure
+                        </div>
+                    </div>
+                  </div>                   
+              </div>     
+          </div>
+	 </div>
+        
+        <div id="boxes">
+
+            <div id="parameters" class="window">
+            	<div id="popup-header">
+	                <div style="float:left; padding-right:50px;">Chart Style 1</div> 
+	                <div style="float:right;"><a href="#" class="close" style="color:#CFF; text-decoration:none;">Close</a></div> 
+				</div>
+                <div id="popup-body" style="padding:10px; text-align:left; width:600px; height:500px; overflow:scroll">
+                    <div id="chart-tabs-wrapper">
+                    	<div>
+                            <ul class="chart-tabs-tabs">
+                                <li><a href="#" class="defaulttab" rel="tabs1">Chart</a></li>
+                                <li><a href="#" rel="tabs2">JSON</a></li>
+                            </ul>
+						</div>                     
+                        <div class="chart-tabs-tab-content" id="tabs1" style="text-align:center;">
+								<img src="css/images/chart.jpg"/>                        	
+                        </div>
+                        <div class="chart-tabs-tab-content" id="tabs2" style="overflow:auto">
+								JSON must go in here. 
+                        </div>
+                    </div>
+				</div>
+				<!--
+            	<div id="popup-footer">
+	                <div style="float:right;"><a class="close"  href="">Save</a> | <a class="close" href="">Cancel</a></div> 
+				</div>
+				-->
+            </div>
+              
+          
+            
+            
+            <!-- Mask to cover the whole screen -->
+            <div id="mask"></div>
+        </div>
+                
+	</body>
+</html>

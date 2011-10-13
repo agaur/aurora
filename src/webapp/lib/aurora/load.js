@@ -1,82 +1,86 @@
 $(document).ready(function() { 
 	
 	// TODO write generateDivs to dynamically generate the Divs instead of writing them statically.. 
-	generateDivs();
-	
-	var type = "";
-	$('.chart-tabs-tabs a').click(function(){
-		switch_tabs($(this),type);
-	});
+	var flag = generateDivs();
+	if(flag == true){
+				var type = "";
+				$('.chart-tabs-tabs a').click(function(){
+					switch_tabs($(this),type);
+				});
 
-	
+				
 
-	//select all the a tag with name equal to modal
-	$('button[name=modal],div[name=modal]').click(function(e) {
-		//Cancel the link behavior
-		e.preventDefault();
-	
-		//Get the A tag
-		var id = $(this).attr('id');
-	
-		// Get the type tag. This type tag will help us determine what image to show and what JSON to show
-		type = $(this).attr('type');
+				//select all the a tag with name equal to modal
+				$('button[name=modal],div[name=modal]').click(function(e) {
+					//Cancel the link behavior
+					e.preventDefault();
+				
+					//Get the A tag
+					var id = $(this).attr('id');
+				
+					// Get the type tag. This type tag will help us determine what image to show and what JSON to show
+					type = $(this).attr('type');
 
-		//Get the screen height and width
-		var maskHeight = $(document).height();
-		var maskWidth = $(window).width();
+					//Get the screen height and width
+					var maskHeight = $(document).height();
+					var maskWidth = $(window).width();
 
-		//Set heigth and width to mask to fill up the whole screen
-		$('#mask').css({'width':maskWidth,'height':maskHeight});
-	
-		//transition effect		
-		$('#mask').fadeIn(200);	
-		$('#mask').fadeTo("slow",0.8);	
+					//Set heigth and width to mask to fill up the whole screen
+					$('#mask').css({'width':maskWidth,'height':maskHeight});
+				
+					//transition effect		
+					$('#mask').fadeIn(200);	
+					$('#mask').fadeTo("slow",0.8);	
 
-		//Get the window height and width
-		var winH = $(window).height()+2*$(window).scrollTop();
-		var winW = $(window).width();
-		  
-		//Set the popup window to center
-		$(id).css('top',  winH/2-$(id).height()/2);
-		$(id).css('left', winW/2-$(id).width()/2);
-	
-		//transition effect
-		$(id).fadeIn(500);
+					//Get the window height and width
+					var winH = $(window).height()+2*$(window).scrollTop();
+					var winW = $(window).width();
+					  
+					//Set the popup window to center
+					$(id).css('top',  winH/2-$(id).height()/2);
+					$(id).css('left', winW/2-$(id).width()/2);
+				
+					//transition effect
+					$(id).fadeIn(500);
+					
+					switch_tabs($('.defaulttab'),type);
+				});
+
+
+					//if close button is clicked
+					$('.window .close').click(function (e) {
+						e.preventDefault();
+						
+						$('#mask').hide();
+						$('.window').hide();
+					});		
+
+					//if mask is clicked
+					$('#mask').click(function () {
+						$(this).hide();
+						$('.window').hide();
+					});
 		
-		switch_tabs($('.defaulttab'),type);
-	});
-
-
-		//if close button is clicked
-		$('.window .close').click(function (e) {
-			e.preventDefault();
-			
-			$('#mask').hide();
-			$('.window').hide();
-		});		
-
-		//if mask is clicked
-		$('#mask').click(function () {
-			$(this).hide();
-			$('.window').hide();
-		});
+	}else{
+		document.write("Please check generateDivs() method in js/load.js. There might be some errors there");
+	}
 });    
 
 function switch_tabs(obj,type) {
-$('.chart-tabs-tab-content').hide();
-$('.chart-tabs-tabs a').removeClass("selected");
-var id = obj.attr("rel");
-var newChartHTML = "<img src='css/images/"+type+".png' width='500px;' height='400px;'>";
-var jsonContent = getchartjson(type);
-if(id == "tabs1"){
-	document.getElementById(id).innerHTML = newChartHTML;
-}else{
-	//var text = JSON.stringify(jsonContent);
-	var formattedJSON = FormatJSON(jsonContent);
-	document.getElementById(id).innerHTML = "<pre>"+formattedJSON+"</pre>";
-}
-$('#'+id).show();
-obj.addClass("selected");
+			$('.chart-tabs-tab-content').hide();
+			$('.chart-tabs-tabs a').removeClass("selected");
+			var id = obj.attr("rel");
+			var newChartHTML = "<img src='css/images/"+type+".png' width='500px;' height='400px;'>";
+			var jsonContent = getchartjson(type);
+			if(id == "tabs1"){
+				document.getElementById(id).innerHTML = newChartHTML;
+			}else{
+				//var text = JSON.stringify(jsonContent);
+				var formattedJSON = FormatJSON(jsonContent);
+				document.getElementById(id).innerHTML = "<pre>"+formattedJSON+"</pre>";
+			}
+			$('#'+id).show();
+			obj.addClass("selected");
 } 
 
 function FormatJSON(oData, sIndent) {
@@ -168,30 +172,147 @@ function RealTypeOf(v) {
 function generateDivs(){
 	var mapData = chartJSON.charter;
 	var group = "", prevgroup = mapData[0].chart.group, flag = true;
+	var auroraContent = loadInitials();
+	var groupContent = "";
+	// Always keep passing from the second iteration
+	var prevgroup = "";
 	for(var i=0; i<mapData.length; i++){
 			var graphType = mapData[i].chart.type;
 			var graphTitle = mapData[i].chart.name;
 			var graphDesc = mapData[i].chart.description;
 			group = mapData[i].chart.group;
 			if(prevgroup == group){
-				
-			
-				
-			}else{
-				// On change your first element will always be here
-				
-				//alert("change");
-				if(flag == true){
-					
-					//alert("In group"+group+"");
-					
-					
-				}
-				
-			}
-			
+			}else
+				groupContent+= generateGroupContent(true, group, mapData);
 			prevgroup = group;
-	}	
+	}
+	auroraContent+= groupContent;
+	var wrapAurora = wrapInitials();
+	auroraContent+= wrapAurora;
+	
+	var auroraContainer = document.getElementById("container");
+	auroraContainer.innerHTML = "";
+	auroraContainer.innerHTML = auroraContent;
+	
+	var graphPopUpContainer = document.getElementById("boxes");
+	graphPopUpContainer.innerHTML = "";
+	graphPopUpContainer.innerHTML = generateGraphPopups();
+	return true;
+}
+
+/**
+ * flag==true would indicate that there is another group following this.. 
+ * */
+function generateGroupContent(flag, group, mapData){
+	
+	var preModals = generatePreModalDivs(flag, group);
+	var modalContent = "";
+	for(var i=0; i<mapData.length; i++){
+			var graphType = mapData[i].chart.type;
+			var graphTitle = mapData[i].chart.name;
+			var graphDesc = mapData[i].chart.description;
+			graphGroup = mapData[i].chart.group;
+			if(group == graphGroup){
+				modalContent+= generateModalElement(graphType, graphTitle, graphDesc);	
+			}
+	}
+	preModals+= modalContent;
+	var wrapModals = closePreModalAfterModel();
+	preModals+= wrapModals;
+	return preModals;	
+		
+}
+
+/**
+ * The order of generation would be
+ * 	1. LoadInitials()
+ *  2. generatePreModalDivs()
+ *  3. generateModalElement()
+ *  4. closePreModalAfterModal()
+ *  5. WrapInitials()
+ * */
+ 
+function generateModalElement(type, title, description){
+	var modalElement = "<div name='modal' id='#parameters' type='"+type+"' style='float:left; width:23%; padding:1%; cursor:pointer;'>";
+        modalElement+= "<div id='content'>";
+        modalElement+=  "<img src='css/images/"+type+".png' width='140px;'/>";
+		modalElement+= "</div>";
+		modalElement+= "<div style='text-decoration:none; font-weight:bold; color:#666666; padding-top:5px;'>";
+		modalElement+= title;
+		modalElement+= "</div>";
+		modalElement+= "<div style='text-decoration:none; font-weight:normal; color:#666666; padding-top:5px; line-height:normal;'>";
+		modalElement+= description;
+		modalElement+= "</div>";
+		modalElement+= "</div>";
+		
+		return modalElement;
+}
+
+function generatePreModalDivs(flag, group){
+	if(flag == true){
+	 var preModalElement = "<div style='float:left; width:100%; color:#69C; font-size:11px; font-weight:bold; line-height:20px;'>";
+         preModalElement+=  "<div style='margin-left:5px; float:left;'>"+" "+group+" :-</div>";
+         preModalElement+=   "<div style='width:100%; float:left;'>";
+         
+         return preModalElement;
+	 }
+	 else{
+			return "<div></div>";
+	 }
+}
+
+function closePreModalAfterModel(){
+		var returnModal = "</div></div>";
+			returnModal+= "<div style='width:100%; float:left; height:20px;'></div>";
+			
+			return returnModal;
+}
+
+function loadInitials(){
+	var bootElement  = "";
+        bootElement+= "<div style='color:#69C; font-size:18px; font-weight:bold; text-align:left; padding:10px; overflow:hidden;'>";
+        bootElement+=  "<div style='margin-bottom:20px;'>";
+        bootElement+=   "Aurora Chart Gallery";
+        bootElement+=    "</div>";
+        return bootElement;
+}
+
+function wrapInitials(){
+		return "</div>";
+}
+
+function generateGraphPopups(){
+		var graphPopUpContent = "";
+		graphPopUpContent+=  "<div id='parameters' class='window'>";
+		graphPopUpContent+=  "<div id='popup-header'>";
+		graphPopUpContent+=  "<div style='float:left; padding-right:50px;'>Chart Style </div>";
+		graphPopUpContent+=	 "<div style='float:right;'><a href='#' class='close' style='color:#CFF; text-decoration:none;'>Close</a></div>";
+		graphPopUpContent+=  "</div>";
+		graphPopUpContent+=  "<div id='popup-body' style='padding:10px; text-align:left; width:600px; height:500px; overflow:scroll' screenX='100' screenY='100'>";
+		graphPopUpContent+=  "<div id='chart-tabs-wrapper'>";
+		graphPopUpContent+=  "<div>";
+		graphPopUpContent+=  "<ul class='chart-tabs-tabs'>";
+		graphPopUpContent+=  "<li><a href='#' class='defaulttab' rel='tabs1'>Chart</a></li>";
+		graphPopUpContent+=  "<li><a href='#' rel='tabs2'>JSON</a></li></ul></div>";
+		graphPopUpContent+=  "<div class='chart-tabs-tab-content' id='tabs1' style='text-align:center;' styleX='100' styleY='100'><img src='css/images/chart.jpg'/>";                        	
+        graphPopUpContent+=  "</div><div class='chart-tabs-tab-content' id='tabs2' style='overflow:auto' styleX='100' styleY='100'></div>";
+        graphPopUpContent+=  "</div></div>";
+				/**
+            	<div id="popup-footer">
+	                <div style="float:right;"><a class="close"  href="">Save</a> | <a class="close" href="">Cancel</a></div> 
+				</div>
+				-->
+				* */
+       graphPopUpContent+= "</div>";
+              
+          
+            
+            
+            //-- Mask to cover the whole screen -->
+      graphPopUpContent+=  "<div id='mask'></div>";
+      
+      return graphPopUpContent;
+
 }
 function getChartImage(type){
 	var chartData = chartJSON.charter;
