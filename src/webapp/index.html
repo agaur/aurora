@@ -889,12 +889,56 @@ var graphDef10 = {
 	"palette": 1,
 	"type": "b",
 	"root" : "Pramati",
-	"data" : [
-		{"Pramati Technologies" : [{"dept" : "server", "employees":"80", "workingdays":"5"}, {"dept" : "non-server", "employees":"80", "workingdays":"6"}]},
-		{"Imaginea Technologies" : [{"dept" : "bigmachines", "employees":"80", "workingdays":"4"}, {"dept" : "leantaas", "employees":"80", "workingdays":"12"}]},
-		{"Social Twist" : [{"dept" : "tell a friend", "employees":"80", "workingdays":"5"}, {"dept" : "buzz around", "employees":"60", "workingdays":"3"}]},
-		{"Qontext" : [{"dept" : "chatting", "employees":"80", "workingdays":"5"},{"dept" : "non-chatting", "employees":"80", "workingdays":"5"}]}	
-	]
+	"pramati":{
+        "Pramati Technologies":{
+            "pnode1":{
+                "dept":"server",
+                "employees":"80",
+                "workingdays":"5"
+            },
+            "pnode2":{
+                "dept":"non-server",
+                "employees":"80",
+                "workingdays":"6"
+            }
+        },
+        "Imaginea Technologies":{
+            "inode1":{
+                "dept":"bigmachines",
+                "employees":"80",
+                "workingdays":"4"
+            },
+            "inode2":{
+                "dept":"leantaas",
+                "employees":"80",
+                "workingdays":"12"
+            }
+        },
+        "Social Twist":{
+            "snode1":{
+                "dept":"tell a friend",
+                "employees":"80",
+                "workingdays":"5"
+            },
+            "snode2":{
+                "dept":"buzz around",
+                "employees":"60",
+                "workingdays":"3"
+            }
+        },
+        "Qontext":{
+            "qnode1":{
+                "dept":"chatting",
+                "employees":"80",
+                "workingdays":"5"
+            },
+            "qnode2":{
+                "dept":"non-chatting",
+                "employees":"80",
+                "workingdays":"5"
+            }
+        }
+    }
 };
 
 var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8,graph9,graph10,graph11;

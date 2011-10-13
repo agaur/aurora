@@ -66,18 +66,105 @@ function switch_tabs(obj,type) {
 $('.chart-tabs-tab-content').hide();
 $('.chart-tabs-tabs a').removeClass("selected");
 var id = obj.attr("rel");
-var newChartHTML = "<img src='css/images/"+type+".png'> ";
+var newChartHTML = "<img src='css/images/"+type+".png' width='500px;' height='400px;'>";
 var jsonContent = getchartjson(type);
 if(id == "tabs1"){
 	document.getElementById(id).innerHTML = newChartHTML;
 }else{
-	var text = JSON.stringify(jsonContent, null, '\t');
-	document.getElementById(id).innerHTML = text;
+	//var text = JSON.stringify(jsonContent);
+	var formattedJSON = FormatJSON(jsonContent);
+	document.getElementById(id).innerHTML = "<pre>"+formattedJSON+"</pre>";
 }
 $('#'+id).show();
 obj.addClass("selected");
 } 
 
+function FormatJSON(oData, sIndent) {
+    if (arguments.length < 2) {
+        var sIndent = "";
+    }
+    var sIndentStyle = "    ";
+    var sDataType = RealTypeOf(oData);
+
+    // open object
+    if (sDataType == "array") {
+        if (oData.length == 0) {
+            return "[]";
+        }
+        var sHTML = "[";
+    } else {
+        var iCount = 0;
+        $.each(oData, function() {
+            iCount++;
+            return;
+        });
+        if (iCount == 0) { // object is empty
+            return "{}";
+        }
+        var sHTML = "{";
+    }
+
+    // loop through items
+    var iCount = 0;
+    $.each(oData, function(sKey, vValue) {
+        if (iCount > 0) {
+            sHTML += ",";
+        }
+        if (sDataType == "array") {
+            sHTML += ("\n" + sIndent + sIndentStyle);
+        } else {
+            sHTML += ("\n" + sIndent + sIndentStyle + "\"" + sKey + "\"" + ": ");
+        }
+
+        // display relevant data type
+        switch (RealTypeOf(vValue)) {
+            case "array":
+            case "object":
+                sHTML += FormatJSON(vValue, (sIndent + sIndentStyle));
+                break;
+            case "boolean":
+            case "number":
+                sHTML += vValue.toString();
+                break;
+            case "null":
+                sHTML += "null";
+                break;
+            case "string":
+                sHTML += ("\"" + vValue + "\"");
+                break;
+            default:
+                sHTML += ("TYPEOF: " + typeof(vValue));
+        }
+
+        // loop
+        iCount++;
+    });
+
+    // close object
+    if (sDataType == "array") {
+        sHTML += ("\n" + sIndent + "]");
+    } else {
+        sHTML += ("\n" + sIndent + "}");
+    }
+
+    // return
+    return sHTML;
+}
+
+function RealTypeOf(v) {
+  if (typeof(v) == "object") {
+    if (v === null) return "null";
+    if (v.constructor == (new Array).constructor) return "array";
+    if (v.constructor == (new Date).constructor) return "date";
+    if (v.constructor == (new RegExp).constructor) return "regex";
+    return "object";
+  }
+  return typeof(v);
+}
+
+/**
+ * 	This function generateDivs is a TODO.. it will generate the whole HTML page dynamically.. 
+ * */
 function generateDivs(){
 	var mapData = chartJSON.charter;
 	var group = "", prevgroup = mapData[0].chart.group, flag = true;
@@ -567,7 +654,7 @@ var chartJSON = {
 	{
 	"chart" : 
 	 {
-		"type" : "pie",
+		"type" 		  : "pie",
 		"group"       :  "Scatter, Wedge and Area Graphs",
 		"name"  	  :  "Pie Graph",
 		"description" :  "Simple Pie Graph Representation",
@@ -712,63 +799,55 @@ var chartJSON = {
 							"palette": 1,
 							"type": "b",
 							"root" : "Pramati",
-							"data" : [
-								{
-									"Pramati Technologies" : [
-										{
-											"dept" : "server", 
-											"employees":"80", 
-											"workingdays":"5"
-										}, 
-										{
-											"dept" : "non-server", 
-											"employees":"80", 
-											"workingdays":"6"
-										}
-									]
-								},
-								{
-									"Imaginea Technologies" : [
-										{
-											"dept" : "bigmachines", 
-											"employees":"80", 
-											"workingdays":"4"
-										}, 
-										{
-											"dept" : "leantaas", 
-											"employees":"80", 
-											"workingdays":"12"
-										}
-									]
-								},
-								{
-									"Social Twist" : [
-										{
-											"dept" : "tell a friend", 
-											"employees":"80", 
-											"workingdays":"5"
-										}, 
-										{
-											"dept" : "buzz around", 
-											"employees":"60", 
-											"workingdays":"3"
-										}
-									]
-								},
-								{
-									"Qontext" : [
-										{
-											"dept" : "chatting", 
-											"employees":"80", 
+							 "pramati":{
+									"Pramati Technologies":{
+										"pnode1":{
+											"dept":"server",
+											"employees":"80",
 											"workingdays":"5"
 										},
-										{
-											"dept" : "non-chatting", 
-											"employees":"80", 
+										"pnode2":{
+											"dept":"non-server",
+											"employees":"80",
+											"workingdays":"6"
+										}
+									},
+									"Imaginea Technologies":{
+										"inode1":{
+											"dept":"bigmachines",
+											"employees":"80",
+											"workingdays":"4"
+										},
+										"inode2":{
+											"dept":"leantaas",
+											"employees":"80",
+											"workingdays":"12"
+										}
+									},
+									"Social Twist":{
+										"snode1":{
+											"dept":"tell a friend",
+											"employees":"80",
+											"workingdays":"5"
+										},
+										"snode2":{
+											"dept":"buzz around",
+											"employees":"60",
+											"workingdays":"3"
+										}
+									},
+									"Qontext":{
+										"qnode1":{
+											"dept":"chatting",
+											"employees":"80",
+											"workingdays":"5"
+										},
+										"qnode2":{
+											"dept":"non-chatting",
+											"employees":"80",
 											"workingdays":"5"
 										}
-									]
+									}
 								}	
-							]
 	}}}}
 ]};
