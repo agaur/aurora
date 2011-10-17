@@ -107,8 +107,11 @@ function FormatJSON(oData, sIndent) {
         }
         var sHTML = "{";
     }
-
+    /**
+     * Attempting to iterate through items and putting 'em in place
+    **/
     // loop through items
+   
     var iCount = 0;
     $.each(oData, function(sKey, vValue) {
         if (iCount > 0) {
@@ -174,7 +177,8 @@ function generateDivs(){
 	var group = "", prevgroup = mapData[0].chart.group, flag = true;
 	var auroraContent = loadInitials();
 	var groupContent = "";
-	// Always keep passing from the second iteration
+	// Always keep passing from the second iteration, if you were putting a forloop and div code in the same thing. 
+	// For clarity I have separated 'em out.
 	var prevgroup = "";
 	for(var i=0; i<mapData.length; i++){
 			var graphType = mapData[i].chart.type;
@@ -897,10 +901,10 @@ var chartJSON = {
 									"y": 1.3
 							}
 							]
-	}}}},
+	}}}}
 	
 	// Tree Graph
-	{
+	/*{
 	"chart" : 
 	 {
 		"type" : "tree",
@@ -920,7 +924,7 @@ var chartJSON = {
 							"palette": 1,
 							"type": "b",
 							"root" : "Pramati",
-							 "pramati":{
+							 "data":{
 									"Pramati Technologies":{
 										"pnode1":{
 											"dept":"server",
@@ -970,5 +974,5 @@ var chartJSON = {
 										}
 									}
 								}	
-	}}}}
+	}}}}*/
 ]};

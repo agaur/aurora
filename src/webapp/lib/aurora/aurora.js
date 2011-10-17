@@ -170,6 +170,30 @@ AR.Graph.prototype.setHeight = function (height) {
 	self._panel.height(self._dimension.height);
 };
 
+AR.Graph.prototype.setLeft = function (left) {
+	var self = this;
+	self._dimension.left = left;
+	self._panel.left(self._dimension.left);
+};
+
+AR.Graph.prototype.setRight = function (right) {
+	var self = this;
+	self._dimension.right = right;
+	self._panel.right(self._dimension.right);
+};
+
+AR.Graph.prototype.setTop = function (top) {
+	var self = this;
+	self._dimension.top = top;
+	self._panel.top(self._dimension.top);
+};
+
+AR.Graph.prototype.setBottom = function (bottom) {
+	var self = this;
+	self._dimension.bottom = bottom;
+	self._panel.bottom(self._dimension.bottom);
+};
+
 /**
  * Sets a graph's xAxisName.
  * xAxisName is one of the properties of a graph
@@ -337,7 +361,7 @@ AR.registerToProtovis = function () {
 	if (navigator.appName === "Microsoft Internet Explorer") {
 		AR.addJavascript("lib/svg/svg.js", "head", "lib/svg/");
 	}
-	var scriptArray = ["lib/protovis-d3.3.js", "lib/aurora/bar.js", "lib/aurora/wedge.js", "lib/aurora/utility.js", "lib/aurora/bubble.js", "lib/aurora/area.js", "lib/aurora/line.js", "lib/js/jquery-1.5.1.js", "lib/js/jquery.ui.core.js", "lib/js/jquery.tablesorter.pager.js", "lib/js/jquery.tablesorter.js", "lib/js/jquery.validationEngine.js", "lib/aurora/load.js"];
+	var scriptArray = ["lib/protovis-d3.3.js", "lib/aurora/bar.js", "lib/aurora/wedge.js", "lib/aurora/utility.js", "lib/aurora/bubble.js", "lib/aurora/area.js", "lib/aurora/line.js", "lib/js/jquery-1.5.1.js", "lib/js/jquery.ui.core.js", "lib/js/jquery.tablesorter.pager.js", "lib/js/jquery.tablesorter.js", "lib/js/jquery.validationEngine.js", "lib/aurora/load.js", "lib/aurora/tree.js"];
 	self._includeScripts = function(scriptArray){
 		for(i=0;i<scriptArray.length; i++){
 			AR.addJavascript(scriptArray[i]);

@@ -459,6 +459,7 @@
 	]
 };
 </pre></div></td></tr>
+<!--
 <tr><td><div class ="gen-float-left" id="graph13"></div></td>
 <td>
 <div><pre>
@@ -532,6 +533,7 @@
 	]
 };
 </pre></div></td></tr>
+-->
 </table>
 <script type="text/javascript+protovis">		
 var graphDef = {
@@ -889,7 +891,7 @@ var graphDef10 = {
 	"palette": 1,
 	"type": "b",
 	"root" : "Pramati",
-	"pramati":{
+	"data":{
         "Pramati Technologies":{
             "pnode1":{
                 "dept":"server",
@@ -941,7 +943,7 @@ var graphDef10 = {
     }
 };
 
-var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8,graph9,graph10,graph11;
+var graph,graph1, graph2,graph3,graph4,graph5,graph6,graph7,graph8,graph9,graph10,graph11,graph12;
 function createGraph() {
     graph = new AR.BarGraph(graphDef);
     graph.render("graph1");
@@ -967,6 +969,8 @@ function createGraph() {
 	graph10.render("graph11");
 	graph11 = new AR.LineGraph(graphDef9);
 	graph11.render("graph12");
+	//graph12 = new AR.TreeGraph(graphDef10);
+	//graph12.render("graph13");
 }	
 window.onload = createGraph();
 </script>

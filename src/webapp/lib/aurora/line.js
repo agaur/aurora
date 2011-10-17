@@ -166,7 +166,7 @@ AR.LineGraph = function (graphDef) {
 		for(i = 0; i< graphDef.dataset.length; i++){
 			 var noOfRecords = dataset.length* dataset[i].data.length;
 			 panel = self._panel.add(pv.Panel).left(i * (self._dimension.width - 30) / (noOfRecords) );
-			 bar = new AR.MLine(self._dimension, panel, graphDef, dataset[i].data, maxValue,flag);
+			 line = new AR.MLine(self._dimension, panel, graphDef, dataset[i].data, maxValue,flag);
 		}
 		self.setHorRules(maxValue, AR.Utility.scale.linear);
 	}else{
